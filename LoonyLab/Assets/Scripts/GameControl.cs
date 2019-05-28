@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class GameControl : MonoBehaviour
@@ -8,7 +9,19 @@ public class GameControl : MonoBehaviour
     public GameObject player;
     public GameObject leftHand;
     public GameObject rightHand;
+    public GameObject balancingScreen;
+
+    public Text chem1;
+    public Text chem2;
+    public Text result;
+
+    public InputField inChem1;
+    public InputField inChem2;
+    public InputField inResult;
+
     public int threshold;
+
+    private bool balancing = false;
     
     // Start is called before the first frame update
     void Start()
@@ -19,7 +32,14 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       if (balancing)
+        {
+            if (inChem1.text.Equals("2") && inChem2.text.Equals("3") && inResult.text.Equals("2"))
+            {
+                balancing = false;
+                balancingScreen.SetActive(false);
+            }
+        } 
     }
 
 
@@ -35,6 +55,41 @@ public class GameControl : MonoBehaviour
             else if (!right && Math.Abs(player_x + 115) < threshold)
                 leftHand.SetActive(true);
         }
+    }
+
+    public void TrashClick(bool right)
+    {
+        float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
+
+        if (Math.Abs(player_y + 250) < threshold)
+        {
+            if (right && Math.Abs(player_x + 100) < threshold)
+                rightHand.SetActive(false);
+            else if (!right && Math.Abs(player_x - 70) < threshold)
+                leftHand.SetActive(false);
+        }
+    }
+
+    public void BalanceClick()
+    {
+        float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
+
+      
+            balancingScreen.SetActive(true);
+            leftHand.SetActive(false);
+            rightHand.SetActive(false);
+
+            balancing = true;
+
+            chem1.text = "Fe";
+            chem2.text = "Cl2";
+            result.text = "FeCl3";
+
+
+
+        
     }
 
 }
