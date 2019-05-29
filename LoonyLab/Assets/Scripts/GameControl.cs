@@ -10,7 +10,6 @@ public class GameControl : MonoBehaviour
     public GameObject leftHand;
     public GameObject rightHand;
     public GameObject balancingScreen;
-    public GameObject customer1;
 
     public Text chem1;
     public Text chem2;
@@ -19,7 +18,6 @@ public class GameControl : MonoBehaviour
     public InputField inChem1;
     public InputField inChem2;
     public InputField inResult;
-
 
     public int threshold;
 
@@ -40,9 +38,6 @@ public class GameControl : MonoBehaviour
             {
                 balancing = false;
                 balancingScreen.SetActive(false);
-                rightHand.SetActive(true);
-                SpriteRenderer sr = rightHand.GetComponent<SpriteRenderer>();
-                sr.color = Color.magenta;
             }
         } 
     }
@@ -81,33 +76,20 @@ public class GameControl : MonoBehaviour
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
-        if (player_y < threshold && 6.5 < player_x && leftHand.activeSelf && rightHand.activeSelf)
-        {
+      
             balancingScreen.SetActive(true);
             leftHand.SetActive(false);
             rightHand.SetActive(false);
 
             balancing = true;
 
-            chem1.text = "Fe"; 
+            chem1.text = "Fe";
             chem2.text = "Cl2";
             result.text = "FeCl3";
 
-        }
+
+
         
-    }
-
-    public void CustomerClick()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (!leftHand.activeSelf && rightHand.activeSelf && player_x < -5.5 && player_y > 1.5)
-        {
-            rightHand.SetActive(false);
-            customer1.SetActive(false);
-        }
-
     }
 
 }
