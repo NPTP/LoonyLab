@@ -16,6 +16,8 @@ public class GameControl : MonoBehaviour
     public Text chem1;
     public Text chem2;
     public Text result;
+    public Text customer1Text;
+    public Text customer2Text;
 
     public Text fix2;
     public Text fix3;
@@ -42,18 +44,16 @@ public class GameControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Dictionary<string, Color> temp = new Dictionary<string, Color>();
-        temp["Fe"] = Color.blue;
-        temp["Cl" + sub_2] = Color.red;
-        temp["O" + sub_2] = Color.green;
-        chemicals = temp;
 
-        Dictionary<Tuple<string, string>, Tuple<string, int, int, int, Color>> temp2 = new Dictionary<Tuple<string, string>, Tuple<string, int, int, int, Color>>();
-        temp2[Tuple.Create("Fe", "Cl" + sub_2)] = Tuple.Create("FeCl" + sub_3, 2, 3, 2, Color.magenta);
-        temp2[Tuple.Create("Cl" + sub_2, "Fe")] = Tuple.Create("FeCl" + sub_3, 3, 2, 2, Color.magenta);
-        temp2[Tuple.Create("Fe", "O" + sub_2)] = Tuple.Create("Fe" + sub_2 +"O" + sub_3, 4, 3, 2, Color.cyan);
-        temp2[Tuple.Create("O" + sub_2, "Fe")] = Tuple.Create("Fe" + sub_2 + "O" + sub_3, 3, 4, 2, Color.cyan);
-        results = temp2;
+        chemicals["Fe"] = Color.blue;
+        chemicals["Cl" + sub_2] = Color.red;
+        chemicals["O" + sub_2] = Color.green;
+
+        results[Tuple.Create("Fe", "Cl" + sub_2)] = Tuple.Create("FeCl" + sub_3, 2, 3, 2, Color.magenta);
+        results[Tuple.Create("Cl" + sub_2, "Fe")] = Tuple.Create("FeCl" + sub_3, 3, 2, 2, Color.magenta);
+        results[Tuple.Create("Fe", "O" + sub_2)] = Tuple.Create("Fe" + sub_2 +"O" + sub_3, 4, 3, 2, Color.cyan);
+        results[Tuple.Create("O" + sub_2, "Fe")] = Tuple.Create("Fe" + sub_2 + "O" + sub_3, 3, 4, 2, Color.cyan);
+
 
         chemNames.Add("Fe");
         chemNames.Add("Cl" + sub_2);
@@ -61,11 +61,15 @@ public class GameControl : MonoBehaviour
 
         orders.Add("FeCl" + sub_3);
         orders.Add("Fe" + sub_2 + "O" + sub_3);
+        orders.Add("FeCl" + sub_3);
 
         fix2.text = "Cl" + sub_2;
         fix3.text = "O" + sub_2;
         fix4.text = "FeCl" + sub_3;
         fix5.text = "Fe" + sub_2 + "O" + sub_3;
+
+        GenerateCustomers();
+        InvokeRepeating("GenerateCustomers", 2.0f, 3.0f);
     }
 
     // Update is called once per frame
@@ -87,6 +91,25 @@ public class GameControl : MonoBehaviour
                 inResult.text = "";
             }
         } 
+    }
+
+    public void GenerateCustomers()
+    {
+        if (orders.Count != 0)
+        {
+            if (!customer1.activeSelf)
+            {
+                customer1.SetActive(true);
+                customer1Text.text = orders[0];
+                orders.RemoveAt(0);
+            }
+            if (!customer2.activeSelf && orders.Count != 0)
+            {
+                customer2.SetActive(true);
+                customer2Text.text = orders[0];
+                orders.RemoveAt(0);
+            }
+        }
     }
 
 
@@ -182,9 +205,17 @@ public class GameControl : MonoBehaviour
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
-        string order = orders[num];
+        string order = "";
+        if (num == 0)
+        {
+            order = customer1Text.text;
+        }
+        else if (num == 1)
+        {
+            order = customer2Text.text;
+        }
 
-        if (player_x < -5.5 && player_y > 0)
+        if (player_x < -5.5 && player_y > -1)
         {
             if (order == rightName)
             {
@@ -200,3 +231,4 @@ public class GameControl : MonoBehaviour
     }
 
 }
+

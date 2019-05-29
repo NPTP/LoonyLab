@@ -656,7 +656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &477687480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -962,6 +962,8 @@ MonoBehaviour:
   chem1: {fileID: 1974177214}
   chem2: {fileID: 800086874}
   result: {fileID: 1656884281}
+  customer1Text: {fileID: 468890340}
+  customer2Text: {fileID: 955336819}
   fix2: {fileID: 1841649994}
   fix3: {fileID: 1527816323}
   fix4: {fileID: 468890340}
@@ -2841,7 +2843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1501427307
 RectTransform:
   m_ObjectHideFlags: 0
