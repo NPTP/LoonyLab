@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{1A6FE13E-4D8A-B729-2D19-DFD36B10C06E}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Timer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameControl.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameControl.cs" Line="113" Column="6" />
-      <File FileName="Assets/Scripts/Timer.cs" Line="6" Column="2" />
+      <File FileName="Assets/Scripts/GameControl.cs" Line="108" Column="43" />
+      <File FileName="Assets/Scripts/Timer.cs" Line="27" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,7 +10,7 @@
           <Node name="LoonyLab" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Timer.cs" selected="True" />
+                <Node name="GameControl.cs" selected="True" />
               </Node>
             </Node>
           </Node>
