@@ -48,28 +48,34 @@ public class GameControl : MonoBehaviour
         chemicals["Fe"] = Color.blue;
         chemicals["Cl" + sub_2] = Color.red;
         chemicals["O" + sub_2] = Color.green;
+        chemicals["H" + sub_2] = Color.gray;
 
         results[Tuple.Create("Fe", "Cl" + sub_2)] = Tuple.Create("FeCl" + sub_3, 2, 3, 2, Color.magenta);
         results[Tuple.Create("Cl" + sub_2, "Fe")] = Tuple.Create("FeCl" + sub_3, 3, 2, 2, Color.magenta);
         results[Tuple.Create("Fe", "O" + sub_2)] = Tuple.Create("Fe" + sub_2 +"O" + sub_3, 4, 3, 2, Color.cyan);
         results[Tuple.Create("O" + sub_2, "Fe")] = Tuple.Create("Fe" + sub_2 + "O" + sub_3, 3, 4, 2, Color.cyan);
+        results[Tuple.Create("O" + sub_2, "H" + sub_2)] = Tuple.Create("H" + sub_2 + "O", 1, 2, 2, Color.black);
+        results[Tuple.Create("H" + sub_2, "O" + sub_2)] = Tuple.Create("H" + sub_2 + "O", 2, 1, 2, Color.black);
 
 
         chemNames.Add("Fe");
         chemNames.Add("Cl" + sub_2);
         chemNames.Add("O" + sub_2);
+        chemNames.Add("H" + sub_2);
 
         orders.Add("FeCl" + sub_3);
         orders.Add("Fe" + sub_2 + "O" + sub_3);
         orders.Add("FeCl" + sub_3);
+        orders.Add("H" + sub_2 + "O");
+        orders.Add("Fe" + sub_2 + "O" + sub_3);
 
         fix2.text = "Cl" + sub_2;
         fix3.text = "O" + sub_2;
-        fix4.text = "FeCl" + sub_3;
+        fix4.text = "H" + sub_2;
         fix5.text = "Fe" + sub_2 + "O" + sub_3;
 
         GenerateCustomers();
-        InvokeRepeating("GenerateCustomers", 2.0f, 3.0f);
+        InvokeRepeating("GenerateCustomers", 2.0f, 5.0f);
     }
 
     // Update is called once per frame
