@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Tutorial1 : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class Tutorial1 : MonoBehaviour
         {
             tutorial_text.text = tutorial[tutorial_num];
             tutorial_num++;
+        }
+        else
+        {
+            SceneManager.LoadScene("TutorialLab");
         }
     }
 }

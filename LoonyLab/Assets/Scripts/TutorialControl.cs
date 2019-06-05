@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TutorialControl : MonoBehaviour
 {
@@ -27,6 +28,13 @@ public class TutorialControl : MonoBehaviour
     public InputField inChem2;
     public InputField inResult;
 
+    public GameObject customerArrow;
+    public GameObject elementArrow;
+    public GameObject balanceArrow;
+    public GameObject giantText;
+    public Text giantName;
+    public GameObject nextButton;
+
     public int threshold;
     private Dictionary<string, Color> chemicals = new Dictionary<string, Color>();
     private Dictionary<Tuple<string, string>, Tuple<string, int, int, int, Color>> results = new Dictionary<Tuple<string, string>, Tuple<string, int, int, int, Color>>();
@@ -43,6 +51,7 @@ public class TutorialControl : MonoBehaviour
     private bool tutorial_items = false;
     private bool tutorial_balance = false;
     private bool tutorial_customer = false;
+    private bool tutorial_finished = false;
 
     private int num = 0;
     private List<String> tutorialList= new List<String>();
@@ -94,7 +103,7 @@ public class TutorialControl : MonoBehaviour
     {
        if (balancing)
         {
-            if (CheckCorrect())
+            if (CheckCorrect() && tutorial_finished)
             {
                 var tpl = Tuple.Create(leftName, rightName);
                 balancing = false;
@@ -106,6 +115,7 @@ public class TutorialControl : MonoBehaviour
                 inChem1.text = "";
                 inChem2.text = "";
                 inResult.text = "";
+                NextClick();
             }
         } 
     }
@@ -130,7 +140,8 @@ public class TutorialControl : MonoBehaviour
         float player_y = player.transform.position.y;
         string chemName = chemNames[chemNum];
 
-        if (Math.Abs(player_y - 250) < threshold && player_x < 0 && tutorial_items)
+
+        if (player_y > 1 && player_x < 0 && tutorial_items)
         {
             if (!rightHand.activeSelf)
             {
@@ -139,12 +150,14 @@ public class TutorialControl : MonoBehaviour
                 rightName = chemName;
                 sr.color = chemicals[chemName];
             }
-            else if (!leftHand.activeSelf)
+            else if (!leftHand.activeSelf && !(chemName == rightName))
             {
                 leftHand.SetActive(true);
                 SpriteRenderer sr = leftHand.GetComponent<SpriteRenderer>();
                 leftName = chemName;
                 sr.color = chemicals[chemName];
+                tutorial_balance = false;
+                NextClick();
             }
         }
     }
@@ -201,6 +214,7 @@ public class TutorialControl : MonoBehaviour
                 chem1.text = leftName;
                 chem2.text = rightName;
                 result.text = results[tpl].Item1;
+                NextClick();
             }
 
         }
@@ -230,7 +244,7 @@ public class TutorialControl : MonoBehaviour
                     customer1.SetActive(false);
 
                 rightHand.SetActive(false);
-
+                NextClick();
             }
         }
 
@@ -238,7 +252,60 @@ public class TutorialControl : MonoBehaviour
 
     public void NextClick()
     {
+        if (num == 1)
+        {
+            customerArrow.SetActive(true);
+        }
+        if (num == 2)
+        {
+            giantText.SetActive(true);
+            giantName.text = "FeCl" + sub_3;
+        }
+        if (num == 7)
+        {
+            giantText.SetActive(false);
+            customerArrow.SetActive(false);
+            elementArrow.SetActive(true);
+            tutorial_items = true;
+            nextButton.SetActive(false);
+
+        }
+        if (num == 8)
+        {
+            elementArrow.SetActive(false);
+            tutorial_items = false;
+            tutorial_balance = true;
+            balanceArrow.SetActive(true);
+        }
+        if (num == 9)
+        {
+            balanceArrow.SetActive(false);
+            nextButton.SetActive(true);
+        }
+        if (num == 15)
+        {
+            nextButton.SetActive(false);
+            tutorial_finished = true;
+        }
+        if (num == 16)
+        {
+            tutorial_balance = false;
+            tutorial_customer = true;
+            customerArrow.SetActive(true);
+            balanceArrow.SetActive(false);
+        }
+        if (num == 17)
+        {
+            nextButton.SetActive(true);
+            customerArrow.SetActive(false);
+        }
+        if (num == 18)
+        {
+            SceneManager.LoadScene("Level1");
+        }
+
         tutorialText.text = tutorialList[num];
+
         num++;
     }
 
