@@ -6,28 +6,26 @@ using System;
 
 public class GameControl : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject Hand;
-    public GameObject balancingScreen;
-    public GameObject customer1;
-    public GameObject customer2;
+    public GameObject player; // Player object.
+    public GameObject Hand; // Player's hand (inventory).
+    public GameObject balancingScreen; // Screen that appears when balancing chemicals.
+    public GameObject customer1; // First customer object. 
+    public GameObject customer2; // Second customer object.
 
-    public Text chem1;
+    public Text chem1; //Text used in balancing screen.
     public Text chem2;
     public Text result;
-
     public Text chem1Total;
     public Text chem2Total;
     public Text resultTotal;
     public Text customer1Text;
     public Text customer2Text;
 
-    public Text fix2;
+    public Text fix2; //Adding subscripts to element labels.
     public Text fix3;
     public Text fix4;
-    public Text fix5;
 
-    public int threshold;
+    public int threshold; //Distance player can be from objects in order to interact.
 
     private Chemical InHand; // Chemical player is currently holding. 
 
@@ -39,17 +37,21 @@ public class GameControl : MonoBehaviour
     private List<Chemical> chemicals = new List<Chemical>(); // List of chemicals player can pick up. 
     private List<string> orders = new List<string>(); // List of orders customers will make throughout level. 
 
-    private Dictionary<Tuple<Chemical, Chemical>, Chemical> results = new Dictionary<Tuple<Chemical, Chemical>, Chemical>();
+    private Dictionary<Tuple<Chemical, Chemical>, Chemical> results = new Dictionary<Tuple<Chemical, Chemical>, Chemical>(); // Dictionary of possible reactions player can complete.
 
-    private BalancingStation balanceStn = new BalancingStation();
+    private BalancingStation balanceStn = new BalancingStation(); // Balancing station object. Used to complete reactions.
 
     // Start is called before the first frame update
     void Start()
     {
+        // Create chemicals used in the level.
+
         Chemical fe = new Chemical("Fe", 1, 0, false, Color.blue, "Fe");
         Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, Color.red, "Cl");
         Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.green, "O");
         Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, Color.magenta, "H");
+
+        // Load possible reactions into dictionary.
 
         results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, Color.yellow, "FeCl");
         results[Tuple.Create(cl2, fe)] = new Chemical("FeCl" + sub_3, 3, 1, true, Color.yellow, "FeCl");
@@ -58,11 +60,14 @@ public class GameControl : MonoBehaviour
         results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.black, "HO");
         results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.black, "HO");
 
+        // Add chemicals to list.
 
         chemicals.Add(fe);
         chemicals.Add(cl2);
         chemicals.Add(o2);
         chemicals.Add(h2);
+
+        // Load orders for the level.
 
         orders.Add("FeCl" + sub_3);
         orders.Add("Fe" + sub_2 + "O" + sub_3);
@@ -70,10 +75,13 @@ public class GameControl : MonoBehaviour
         orders.Add("H" + sub_2 + "O");
         orders.Add("Fe" + sub_2 + "O" + sub_3);
 
+        // Fix subscripts.
+
         fix2.text = "Cl" + sub_2;
         fix3.text = "O" + sub_2;
         fix4.text = "H" + sub_2;
-        fix5.text = "Fe" + sub_2 + "O" + sub_3;
+
+        // Load customers for the level and have new ones appear as player completes orders.
 
         GenerateCustomers();
         InvokeRepeating("GenerateCustomers", 2.0f, 5.0f);
@@ -87,19 +95,21 @@ public class GameControl : MonoBehaviour
 
     public void GenerateCustomers()
     {
-        if (orders.Count != 0)
+        // Load new customers if there are empty spaces available.
+
+        if (orders.Count != 0) // Check if there are still orders left to complete. 
         {
-            if (!customer1.activeSelf)
+            if (!customer1.activeSelf) // Check if customer 1 space is available.
             {
                 customer1.SetActive(true);
-                customer1Text.text = orders[0];
-                orders.RemoveAt(0);
+                customer1Text.text = orders[0]; // Load next order in line. 
+                orders.RemoveAt(0); // Remove loaded order from list. 
             }
-            if (!customer2.activeSelf && orders.Count != 0)
+            if (!customer2.activeSelf && orders.Count != 0) // Check if customer 2 space is available.
             {
                 customer2.SetActive(true);
-                customer2Text.text = orders[0];
-                orders.RemoveAt(0);
+                customer2Text.text = orders[0]; // Load next order in line. 
+                orders.RemoveAt(0); // Remove loaded order from list. 
             }
         }
     }
@@ -107,20 +117,24 @@ public class GameControl : MonoBehaviour
 
     public void ChemicalClick(int chemNum)
     {
+        // Allow player to pick up selected chemical if player is not already holding something. 
+
         Chemical chem = chemicals[chemNum];
             if (!Hand.activeSelf)
             {
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
-                sr.color = InHand.Colour;
+                sr.color = InHand.Colour; 
             }
         
     }
 
 
     public void TrashClick()
-    {
+    { 
+        // Allow player to throwout whatever chemical they are currently holding. 
+
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
@@ -221,8 +235,10 @@ public class GameControl : MonoBehaviour
         else
         {
             // Not balanced
+            string text1 = "Total: " + (balanceStn.Product.Subscript1 * goal).ToString() + " " + balanceStn.Reactant1.SingleName;
+            string text2 = " " + (balanceStn.Product.Subscript2 * goal).ToString() + " " + balanceStn.Reactant2.SingleName;
 
-            resultTotal.text = "Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
+            resultTotal.text = text1 + text2 + " Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
         }
     }
 
