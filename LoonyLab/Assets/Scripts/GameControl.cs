@@ -208,6 +208,7 @@ public class GameControl : MonoBehaviour
                 }
             }
         }
+        balancingScreen.SetActive(true);
 
     }
 
@@ -235,7 +236,7 @@ public class GameControl : MonoBehaviour
         else
         {
             // Not balanced
-            string text1 = "Total: " + (balanceStn.Product.Subscript1 * goal).ToString() + " " + balanceStn.Reactant1.SingleName;
+            string text1 = "Needed: " + (balanceStn.Product.Subscript1 * goal).ToString() + " " + balanceStn.Reactant1.SingleName;
             string text2 = " " + (balanceStn.Product.Subscript2 * goal).ToString() + " " + balanceStn.Reactant2.SingleName;
 
             resultTotal.text = text1 + text2 + " Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
