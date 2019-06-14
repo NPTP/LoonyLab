@@ -1,0 +1,5 @@
+x: 0-23
+y: 23-45
+
+see player_placeholder01 for desired bounding box of collisions.
+Use player_placeholder02 for a less cluttered view.

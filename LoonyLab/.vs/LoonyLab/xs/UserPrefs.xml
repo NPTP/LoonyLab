@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{1A6FE13E-4D8A-B729-2D19-DFD36B10C06E}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TutorialControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Timer.cs">
     <Files>
-      <File FileName="Assets/Scripts/Timer.cs" Line="27" Column="1" />
+      <File FileName="Assets/Scripts/Timer.cs" Line="9" Column="31" />
       <File FileName="Assets/Scripts/Tutorial1.cs" Line="45" Column="1" />
-      <File FileName="Assets/Scripts/GameControl.cs" Line="239" Column="35" />
-      <File FileName="Assets/Scripts/TutorialControl.cs" Line="339" Column="46" />
+      <File FileName="Assets/Scripts/GameControl.cs" Line="43" Column="1" />
+      <File FileName="Assets/Scripts/TutorialControl.cs" Line="344" Column="15" />
       <File FileName="Assets/Scripts/MainScreen.cs" Line="24" Column="1" />
+      <File FileName="Assets/Scripts/Level1.cs" Line="307" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,7 +14,7 @@
           <Node name="LoonyLab" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="TutorialControl.cs" selected="True" />
+                <Node name="Timer.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -23,7 +24,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="36afd571-aa9a-482b-ab93-285b0c692d4e" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="c3bcc7be-383a-421f-9dca-eea20f79a9d9" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

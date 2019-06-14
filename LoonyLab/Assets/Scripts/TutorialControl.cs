@@ -342,7 +342,6 @@ public class TutorialControl : MonoBehaviour
         tutorialText.text = tutorialList[num];
 
         num++;
-        fix2.text = num.ToString();
     }
 
     public void CloseScreen()

@@ -57,8 +57,8 @@ public class GameControl : MonoBehaviour
         results[Tuple.Create(cl2, fe)] = new Chemical("FeCl" + sub_3, 3, 1, true, Color.yellow, "FeCl");
         results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, Color.cyan, "FeO");
         results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, Color.cyan, "FeO");
-        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.black, "HO");
-        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.black, "HO");
+        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.black, "HO");
+        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.black, "HO");
 
         // Add chemicals to list.
 

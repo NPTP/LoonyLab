@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Timer : MonoBehaviour
 {
-    public float timeLeft = 120.0f;
+    public float timeLeft = 20.0f;
     public Text timeDisplay;
+
+    public GameObject cameraObject;
 
     // Start is called before the first frame update
     void Start()
@@ -17,10 +20,17 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeLeft -= Time.deltaTime;
+        if (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
 
-        int timeRounded = (int)timeLeft;
+            int timeRounded = (int)timeLeft;
 
-        timeDisplay.text = timeRounded.ToString();
+            timeDisplay.text = timeRounded.ToString();
+        }
+        else
+        {
+            cameraObject.GetComponent<Level1>().EndLevel();
+        }
     }
 }
