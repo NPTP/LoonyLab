@@ -26,7 +26,10 @@ public class Timer : MonoBehaviour
 
             int timeRounded = (int)timeLeft;
 
-            timeDisplay.text = timeRounded.ToString();
+            int mins = timeRounded / 60;
+            int secs = timeRounded % 60;
+
+            timeDisplay.text = mins.ToString() + ":" + secs.ToString();
         }
         else
         {

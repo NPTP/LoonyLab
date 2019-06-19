@@ -44,10 +44,10 @@ public class TutorialControl : MonoBehaviour
     private bool balancing = false;
     private bool tutorial_balance = false;
     private bool tutorial_customer = false;
-    private bool tutorial_finished = false;
 
     public GameObject customerArrow;
-    public GameObject elementArrow;
+    public GameObject FeArrow;
+    public GameObject Cl2Arrow;
     public GameObject balanceArrow;
     public GameObject giantText;
     public Text giantName;
@@ -71,10 +71,10 @@ public class TutorialControl : MonoBehaviour
         fix2.text = "Cl" + sub_2;
 
         tutorialList.Add("Here we are! This lab is where you're going to be making all of the chemicals and delivering the orders!");
-        tutorialList.Add("And here's your first customer! Since this is your first day, I'll lead you through the steps to make his order.");
+        tutorialList.Add("And here's your first customer! Since this is your first day, I'll lead you through the steps to make her order.");
         tutorialList.Add("This customer is ordering FeCl" + sub_3 + "! I know those symbols can seem confusing, so let's break the chemical down.");
         tutorialList.Add("FeCl" + sub_3 + " can also be called Iron Chloride. This is because it is made up of two elements:");
-        tutorialList.Add("Iron (Fe) and Chlorine (Cl). So when you combine them together, you create a compound called Iron Chloride.");
+        tutorialList.Add("Iron (Fe) and Chlorine (Cl). When you combine them together, you create a compound called Iron Chloride.");
         tutorialList.Add("You may be wondering what the little 3 under the chlorine symbol means. That subscript tells you how many chlorine molecules are needed to make the compound.");
         tutorialList.Add("So in this case, to make one Iron Chloride molecule, you will need one Iron molecule and three Chlorine molecules. ");
         tutorialList.Add("This is where you come in! Let's get started by going over to the chemical cabinet and picking up an Iron molecule.");
@@ -131,7 +131,7 @@ public class TutorialControl : MonoBehaviour
         float player_y = player.transform.position.y;
         Chemical chem = chemicals[chemNum];
 
-        if (player_y > 1 && player_x < 0 && !balancing)
+        if (!balancing)
         {
             if (!Hand.activeSelf)
             {
@@ -153,7 +153,7 @@ public class TutorialControl : MonoBehaviour
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
-        if (player_y < threshold && 6.5 < player_x && Hand.activeSelf && tutorial_balance)
+        if (Hand.activeSelf && tutorial_balance)
         {
 
             balancingScreen.SetActive(true);
@@ -258,7 +258,7 @@ public class TutorialControl : MonoBehaviour
             order = customer1Text.text;
         }
 
-        if (player_x < -5.5 && player_y > -1 && tutorial_customer && !balancing)
+        if (tutorial_customer && !balancing)
         {
             if (order == InHand.Name)
             {
@@ -287,14 +287,24 @@ public class TutorialControl : MonoBehaviour
         {
             giantText.SetActive(false);
             customerArrow.SetActive(false);
-            elementArrow.SetActive(true);
+            FeArrow.SetActive(true);
             nextButton.SetActive(false);
 
         }
         if (num == 8)
         {
-            elementArrow.SetActive(false);
+            FeArrow.SetActive(false);
             tutorial_balance = true;
+            balanceArrow.SetActive(true);
+        }
+        if (num == 9)
+        {
+            balanceArrow.SetActive(false);
+            Cl2Arrow.SetActive(true);
+        }
+        if (num == 10)
+        {
+            Cl2Arrow.SetActive(false);
             balanceArrow.SetActive(true);
         }
         if (num == 11)
@@ -304,17 +314,29 @@ public class TutorialControl : MonoBehaviour
         if (num == 19)
         {
             nextButton.SetActive(false);
-            elementArrow.SetActive(true);
+            Cl2Arrow.SetActive(true);
             balanceArrow.SetActive(false);
+        }
+        if (num == 20)
+        {
+            Cl2Arrow.SetActive(false);
+            balanceArrow.SetActive(true);
         }
         if (num == 21)
         {
             nextButton.SetActive(true);
-            elementArrow.SetActive(false);
+            Cl2Arrow.SetActive(false);
         }
         if (num == 22)
         {
             nextButton.SetActive(false);
+            Cl2Arrow.SetActive(true);
+            balanceArrow.SetActive(false);
+        }
+        if (num == 23)
+        {
+            balanceArrow.SetActive(true);
+            Cl2Arrow.SetActive(false);
         }
         if (num == 24)
         {
@@ -323,11 +345,19 @@ public class TutorialControl : MonoBehaviour
         if (num == 26)
         {
             nextButton.SetActive(false);
+            FeArrow.SetActive(true);
+            balanceArrow.SetActive(false);
+        }
+        if (num == 27)
+        {
+            FeArrow.SetActive(false);
+            balanceArrow.SetActive(true);
         }
         if (num == 28)
         {
             tutorial_customer = true;
             customerArrow.SetActive(true);
+            balanceArrow.SetActive(false);
         }
         if (num == 29)
         {

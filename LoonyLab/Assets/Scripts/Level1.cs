@@ -11,7 +11,6 @@ public class Level1 : MonoBehaviour
     public GameObject Hand; // Player's hand (inventory).
     public GameObject balancingScreen; // Screen that appears when balancing chemicals.
     public GameObject customer1; // First customer object. 
-    public GameObject customer2; // Second customer object.
     public GameObject endScreen; // End of level screen.
 
     public Text chem1; //Text used in balancing screen.
@@ -21,7 +20,6 @@ public class Level1 : MonoBehaviour
     public Text chem2Total;
     public Text resultTotal;
     public Text customer1Text;
-    public Text customer2Text;
 
     public Text fix2; //Adding subscripts to element labels.
     public Text fix3;
@@ -78,7 +76,7 @@ public class Level1 : MonoBehaviour
         // Load customers for the level and have new ones appear as player completes orders.
 
         GenerateCustomers();
-        InvokeRepeating("GenerateCustomers", 2.0f, 5.0f);
+        InvokeRepeating("GenerateCustomers", 2.0f, 2.0f);
     }
 
     // Update is called once per frame
@@ -97,12 +95,6 @@ public class Level1 : MonoBehaviour
             {
                 customer1.SetActive(true);
                 customer1Text.text = orders[0]; // Load next order in line. 
-                orders.RemoveAt(0); // Remove loaded order from list. 
-            }
-            if (!customer2.activeSelf && orders.Count != 0) // Check if customer 2 space is available.
-            {
-                customer2.SetActive(true);
-                customer2Text.text = orders[0]; // Load next order in line. 
                 orders.RemoveAt(0); // Remove loaded order from list. 
             }
         }
@@ -132,13 +124,9 @@ public class Level1 : MonoBehaviour
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
-        if (Math.Abs(player_y + 250) < threshold)
-        {
-            if (Math.Abs(player_x + 100) < threshold)
-            {
-                Hand.SetActive(false);
-            }
-        }
+        Hand.SetActive(false);
+            
+        
     }
 
     public void BalanceClick()
@@ -146,7 +134,7 @@ public class Level1 : MonoBehaviour
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
-        if (player_y < threshold && 6.5 < player_x && Hand.activeSelf)
+        if (Hand.activeSelf)
         {
 
             balancingScreen.SetActive(true);
@@ -238,36 +226,25 @@ public class Level1 : MonoBehaviour
     }
 
 
-    public void CustomerClick(int num)
+    public void CustomerClick()
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
-        string order = "";
-        if (num == 0)
-        {
-            order = customer1Text.text;
-        }
-        else if (num == 1)
-        {
-            order = customer2Text.text;
-        }
 
-        if (player_x < -5.5 && player_y > -1)
-        {
+        string order = customer1Text.text;
+
             if (order == InHand.Name)
             {
-                if (num == 0)
-                    customer1.SetActive(false);
-                else if (num == 1)
-                    customer2.SetActive(false);
+                customer1.SetActive(false);
+
                 Hand.SetActive(false);
-                if (orders.Count == 0 && !customer1.activeSelf && !customer2.activeSelf)
+                if (orders.Count == 0)
                 {
                     EndLevel();
                 }
 
             }
-        }
+        
 
     }
 
