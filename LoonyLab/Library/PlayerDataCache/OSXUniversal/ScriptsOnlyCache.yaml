@@ -7,8 +7,6 @@ ScriptsOnlyBuild:
     - Timer
     - Tutorial1
     - TutorialControl
-    UnityEditor.TestRunner.dll:
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -929,4 +927,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Level1.unity
   - Assets/Scenes/Tutorial.unity
   - Assets/Scenes/TutorialLab.unity
-  playerPath: /Users/jessicag/Desktop/jess' stuff/school/ROP 299/LoonyLab/LoonyLab/LoonyLab.app
+  playerPath: /Users/jessicag/Desktop/jess' stuff/school/ROP 299/LoonyLab/LoonyLab/LoonyLab2.app

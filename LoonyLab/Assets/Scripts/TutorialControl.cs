@@ -11,7 +11,11 @@ public class TutorialControl : MonoBehaviour
     public GameObject Hand; // Player's hand (inventory).
     public GameObject balancingScreen; // Screen that appears when balancing chemicals.
     public GameObject customer1; // First customer object. 
-    public GameObject customer2; // Second customer object.
+
+    public GameObject CHover;
+    public GameObject O2Hover;
+    public GameObject BalanceHover;
+    public GameObject CustomerHover;
 
     public Text chem1; //Text used in balancing screen.
     public Text chem2;
@@ -24,8 +28,6 @@ public class TutorialControl : MonoBehaviour
     public Text tutorialText;
 
     public Text fix2; //Adding subscripts to element labels.
-
-    public int threshold; //Distance player can be from objects in order to interact.
 
     private Chemical InHand; // Chemical player is currently holding. 
 
@@ -41,13 +43,14 @@ public class TutorialControl : MonoBehaviour
 
     private BalancingStation balanceStn = new BalancingStation(); // Balancing station object. Used to complete reactions.
 
-    private bool balancing = false;
+    public bool balancing = false;
     private bool tutorial_balance = false;
     private bool tutorial_customer = false;
+    private bool space_next = true;
 
     public GameObject customerArrow;
-    public GameObject FeArrow;
-    public GameObject Cl2Arrow;
+    public GameObject CArrow;
+    public GameObject O2Arrow;
     public GameObject balanceArrow;
     public GameObject giantText;
     public Text giantName;
@@ -58,46 +61,25 @@ public class TutorialControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Chemical fe = new Chemical("Fe", 1, 0, false, Color.blue, "Fe");
-        Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, Color.red, "Cl");
+        Chemical c = new Chemical("C", 1, 0, false, Color.blue, "C");
+        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.red, "O");
 
-        chemicals.Add(fe);
-        chemicals.Add(cl2);
+        chemicals.Add(c);
+        chemicals.Add(o2);
 
-        results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, Color.yellow, "FeCl");
+        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, Color.yellow, "CO");
 
-        orders.Add("FeCl" + sub_3);
+        orders.Add("CO" + sub_2);
 
-        fix2.text = "Cl" + sub_2;
+        fix2.text = "O" + sub_2;
 
         tutorialList.Add("Here we are! This lab is where you're going to be making all of the chemicals and delivering the orders!");
         tutorialList.Add("And here's your first customer! Since this is your first day, I'll lead you through the steps to make her order.");
-        tutorialList.Add("This customer is ordering FeCl" + sub_3 + "! I know those symbols can seem confusing, so let's break the chemical down.");
-        tutorialList.Add("FeCl" + sub_3 + " can also be called Iron Chloride. This is because it is made up of two elements:");
-        tutorialList.Add("Iron (Fe) and Chlorine (Cl). When you combine them together, you create a compound called Iron Chloride.");
-        tutorialList.Add("You may be wondering what the little 3 under the chlorine symbol means. That subscript tells you how many chlorine molecules are needed to make the compound.");
-        tutorialList.Add("So in this case, to make one Iron Chloride molecule, you will need one Iron molecule and three Chlorine molecules. ");
-        tutorialList.Add("This is where you come in! Let's get started by going over to the chemical cabinet and picking up an Iron molecule.");
+        tutorialList.Add("This customer is ordering CO" + sub_2 + "! It is made up of Carbon molecules and Oxygen molecules.");
+        tutorialList.Add("This is where you come in! Let's get started by going over to the chemical cabinet and picking up a Carbon molecule.");
         tutorialList.Add("Awesome job! Now that you have the element you need, let's bring it over to the balancing station.");
-        tutorialList.Add("You can see that the Iron has been added to the station. Now let's go get some Chlorine and bring it over.");
-        tutorialList.Add("You can see that the Iron has been added to the station. Now let's go get some Chlorine and bring it over.");
-        tutorialList.Add("Nice work! Looking at the station you can see that you now have a total of 1 Iron molecule and 2 Chlorine molecules added.");
-        tutorialList.Add("But the equation isn't balanced yet! Looking at the products side of the equation, you can see that one Iron Chloride compound requires 1 Fe molecule and 3 Cl molecules.");
-        tutorialList.Add("In the 18th century, Antoine Lavoisier demonstrated a fundamental law of chemistry, the Law of Conservation of Mass (or LCM)");
-        tutorialList.Add("The masses of all of the reacting substances must equal the masses\nof all the substances produced in a chemical reaction");
-        tutorialList.Add("In a chemical reaction, nothing can be created or destroyed. All atoms present before a reaction starts must be present in the exact same amounts after it is over.");
-        tutorialList.Add("The arrangement of the atoms may be different, but not their number.");
-        tutorialList.Add("This means that if your product uses three Chlorine molecules, your reactants must also have three Chlorine molecules.");
-        tutorialList.Add("It's up to you to balance the equation by determining how many groups of Iron and Chlorine molecules you need in your reactants.");
-        tutorialList.Add("Since this is still your first day, I'll help you out. Let's start by getting one more Chlorine element and adding it to the station.");
-        tutorialList.Add("Since this is still your first day, I'll help you out. Let's start by getting one more Chlorine element and adding it to the station.");
-        tutorialList.Add("Awesome! Now you have a total of 4 Chlorine molecules. That's 1 too many to make only one Iron Chloride compound, so let's make two compounds instead!");
-        tutorialList.Add("You're missing exactly 2 Chlorine molecules to have enough to make two Iron Chloride compounds. Go get one more Cl" + sub_2 + " molecule and bring it to the station.");
-        tutorialList.Add("You're missing exactly 2 Chlorine molecules to have enough to make two Iron Chloride compounds. Go get one more Cl" + sub_2 + " molecule and bring it to the station.");
-        tutorialList.Add("Perfect! Now we have the right number of Chlorine molecules, but are still missing something...");
-        tutorialList.Add("If we're going to make two Iron Chloride compounds, that means we will need 2 Fe molecules, but right now we only have one.");
-        tutorialList.Add("You're almost finished the reaction! Go get one more Fe element and bring it to the balancing station.");
-        tutorialList.Add("You're almost finished the reaction! Go get one more Fe element and bring it to the balancing station.");
+        tutorialList.Add("You can see that the Carbon has been added to the station. Now let's go get some Oxygen and bring it over.");
+        tutorialList.Add("You can see that the Carbon has been added to the station. Now let's go get some Oxygen and bring it over.");
         tutorialList.Add("Nice going, you're a natural at this! Now you can take your finished compound and give it to the customer.");
         tutorialList.Add("You did some great science today! Now it's time for you to test your skills and try completing tomorrow's orders on your own.");
 
@@ -108,7 +90,48 @@ public class TutorialControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (space_next)
+            {
+                NextClick();
+            }
+            else if (balancing)
+            {
+                CloseScreen();
+            }
+            else
+            {
+                if (CheckBalance())
+                    BalanceClick();
+                if (CheckFe())
+                    ChemicalClick(0);
+                if (CheckCl2())
+                    ChemicalClick(1);
+                if (CheckCustomer())
+                    CustomerClick(0);
+            }
+        }
+        if (CheckBalance() && Hand.activeSelf && !InHand.Product)
+            BalanceHover.SetActive(true);
+        else
+            BalanceHover.SetActive(false);
+
+
+        if (CheckFe() && !Hand.activeSelf)
+            CHover.SetActive(true);
+        else
+            CHover.SetActive(false);
+
+        if (CheckCl2() && !Hand.activeSelf)
+            O2Hover.SetActive(true);
+        else
+            O2Hover.SetActive(false);
+
+        if (CheckCustomer() && InHand.Product && Hand.activeSelf)
+            CustomerHover.SetActive(true);
+        else
+            CustomerHover.SetActive(false);
     }
 
     public void GenerateCustomers()
@@ -135,7 +158,7 @@ public class TutorialControl : MonoBehaviour
         {
             if (!Hand.activeSelf)
             {
-                if ((num == 8 && chemNum == 0) || (num == 20 && chemNum == 1) || (num == 10 && chemNum == 1) || (num == 23 && chemNum == 1) || (num == 27 && chemNum == 0))
+                if ((chemNum == 0 && num == 4) || (chemNum == 1 && num == 6))
                 {
                     Hand.SetActive(true);
                     SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
@@ -153,7 +176,7 @@ public class TutorialControl : MonoBehaviour
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
-        if (Hand.activeSelf && tutorial_balance)
+        if (Hand.activeSelf && tutorial_balance && player_x < 5 && player_x > 3)
         {
 
             balancingScreen.SetActive(true);
@@ -214,6 +237,7 @@ public class TutorialControl : MonoBehaviour
         }
         balancingScreen.SetActive(true);
         balancing = true;
+        player.GetComponent<PlayerController>().balancing = true;
     }
 
     public void UpdateBalanced()
@@ -258,7 +282,7 @@ public class TutorialControl : MonoBehaviour
             order = customer1Text.text;
         }
 
-        if (tutorial_customer && !balancing)
+        if (tutorial_customer && !balancing && player_x < -2.5)
         {
             if (order == InHand.Name)
             {
@@ -281,90 +305,46 @@ public class TutorialControl : MonoBehaviour
         if (num == 2)
         {
             giantText.SetActive(true);
-            giantName.text = "FeCl" + sub_3;
+            giantName.text = "CO" + sub_2;
         }
-        if (num == 7)
+        if (num == 3)
         {
             giantText.SetActive(false);
             customerArrow.SetActive(false);
-            FeArrow.SetActive(true);
+            CArrow.SetActive(true);
             nextButton.SetActive(false);
+            space_next = false;
 
         }
-        if (num == 8)
+        if (num == 4)
         {
-            FeArrow.SetActive(false);
+            CArrow.SetActive(false);
             tutorial_balance = true;
             balanceArrow.SetActive(true);
         }
-        if (num == 9)
+        if (num == 5)
         {
             balanceArrow.SetActive(false);
-            Cl2Arrow.SetActive(true);
+            O2Arrow.SetActive(true);
         }
-        if (num == 10)
+        if (num == 6)
         {
-            Cl2Arrow.SetActive(false);
+            O2Arrow.SetActive(false);
             balanceArrow.SetActive(true);
         }
-        if (num == 11)
-        {
-            nextButton.SetActive(true);
-        }
-        if (num == 19)
-        {
-            nextButton.SetActive(false);
-            Cl2Arrow.SetActive(true);
-            balanceArrow.SetActive(false);
-        }
-        if (num == 20)
-        {
-            Cl2Arrow.SetActive(false);
-            balanceArrow.SetActive(true);
-        }
-        if (num == 21)
-        {
-            nextButton.SetActive(true);
-            Cl2Arrow.SetActive(false);
-        }
-        if (num == 22)
-        {
-            nextButton.SetActive(false);
-            Cl2Arrow.SetActive(true);
-            balanceArrow.SetActive(false);
-        }
-        if (num == 23)
-        {
-            balanceArrow.SetActive(true);
-            Cl2Arrow.SetActive(false);
-        }
-        if (num == 24)
-        {
-            nextButton.SetActive(true);
-        }
-        if (num == 26)
-        {
-            nextButton.SetActive(false);
-            FeArrow.SetActive(true);
-            balanceArrow.SetActive(false);
-        }
-        if (num == 27)
-        {
-            FeArrow.SetActive(false);
-            balanceArrow.SetActive(true);
-        }
-        if (num == 28)
+        if (num == 7)
         {
             tutorial_customer = true;
             customerArrow.SetActive(true);
             balanceArrow.SetActive(false);
         }
-        if (num == 29)
+        if (num == 8)
         {
             customerArrow.SetActive(false);
             nextButton.SetActive(true);
+            space_next = true;
         }
-        if (num == 30)
+        if (num == 9)
         {
             SceneManager.LoadScene("Level1");
         }
@@ -378,6 +358,7 @@ public class TutorialControl : MonoBehaviour
     {
         balancingScreen.SetActive(false);
         balancing = false;
+        player.GetComponent<PlayerController>().balancing = false;
         if (Hand.activeSelf)
             ClearScreen();
     }
@@ -396,6 +377,58 @@ public class TutorialControl : MonoBehaviour
         chem1Total.text = "";
         chem2Total.text = "";
         resultTotal.text = "";
+    }
+
+    public bool CheckBalance()
+    {
+        float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
+
+        if (player_y > -1.13 && player_y < 1.55)
+        {
+            if (player_x > 3.86)
+                return true;
+        }
+        return false;
+    }
+
+    public bool CheckCustomer()
+    {
+        float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
+
+        if (player_y > -0.8 && player_y < 0.6)
+        {
+            if (player_x < -3.26)
+                return true;
+        }
+        return false;
+    }
+
+    public bool CheckFe()
+    {
+        float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
+
+        if (player_y > 0.82)
+        {
+            if (player_x > 2.1 && player_x < 2.9)
+                return true;
+        }
+        return false;
+    }
+
+    public bool CheckCl2()
+    {
+        float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
+
+        if (player_y < -1.2)
+        {
+            if (player_x > 2.1 && player_x < 2.9)
+                return true;
+        }
+        return false;
     }
 
 }

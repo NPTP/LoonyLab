@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 
-public class Level1 : MonoBehaviour
+public class Level2 : MonoBehaviour
 {
     public GameObject player; // Player object.
     public GameObject Hand; // Player's hand (inventory).
@@ -21,12 +21,13 @@ public class Level1 : MonoBehaviour
     public Text resultTotal;
     public Text customer1Text;
 
-    public Text fix2; //Adding subscripts to element labels.
+    public Text fix1; //Adding subscripts to element labels.
+    public Text fix2;
     public Text fix3;
 
-    private Chemical InHand; // Chemical player is currently holding. 
+    public int threshold; //Distance player can be from objects in order to interact.
 
-    private bool balancing = false;
+    private Chemical InHand; // Chemical player is currently holding. 
 
 
     private char sub_2 = (char)8322; // Subscript 2
@@ -48,6 +49,7 @@ public class Level1 : MonoBehaviour
         Chemical fe = new Chemical("Fe", 1, 0, false, Color.blue, "Fe");
         Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, Color.red, "Cl");
         Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.green, "O");
+        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, Color.magenta, "H");
 
         // Load possible reactions into dictionary.
 
@@ -55,21 +57,27 @@ public class Level1 : MonoBehaviour
         results[Tuple.Create(cl2, fe)] = new Chemical("FeCl" + sub_3, 3, 1, true, Color.yellow, "FeCl");
         results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, Color.cyan, "FeO");
         results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, Color.cyan, "FeO");
+        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.black, "HO");
+        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.black, "HO");
 
         // Add chemicals to list.
 
         chemicals.Add(fe);
         chemicals.Add(cl2);
         chemicals.Add(o2);
+        chemicals.Add(h2);
 
         // Load orders for the level.
 
-        orders.Add("FeCl" + sub_3);
         orders.Add("Fe" + sub_2 + "O" + sub_3);
+        orders.Add("H" + sub_2 + "O");
         orders.Add("FeCl" + sub_3);
+        orders.Add("H" + sub_2 + "O");
+        orders.Add("Fe" + sub_2 + "O" + sub_3);
 
         // Fix subscripts.
 
+        fix1.text = "H" + sub_2;
         fix2.text = "Cl" + sub_2;
         fix3.text = "O" + sub_2;
 
@@ -82,32 +90,7 @@ public class Level1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (balancing)
-            {
-                CloseScreen();
-            }
-            else
-            {
-                if (CheckBalance())
-                    BalanceClick();
-                if (CheckFe())
-                    ChemicalClick(0);
-                if (CheckCl2())
-                    ChemicalClick(1);
-                if (CheckO2())
-                    ChemicalClick(2);
-                if (CheckCustomer())
-                    CustomerClick();
-                if (CheckTrash())
-                    TrashClick();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.C) && balancing)
-        {
-            ClearScreen();
-        }
+
     }
 
     public void GenerateCustomers()
@@ -129,11 +112,9 @@ public class Level1 : MonoBehaviour
     public void ChemicalClick(int chemNum)
     {
         // Allow player to pick up selected chemical if player is not already holding something. 
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
 
         Chemical chem = chemicals[chemNum];
-            if (!Hand.activeSelf && (chemNum == 0 && player_x > 1.5 && player_y > 0.5) || (chemNum == 1 && player_y < -1.5 && player_x > 1.5) || (chemNum == 2))
+            if (!Hand.activeSelf)
             {
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
@@ -150,8 +131,8 @@ public class Level1 : MonoBehaviour
 
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
-        if (player_x > -1.8 && player_x < 1 && player_y > -0.1)
-            Hand.SetActive(false);
+
+        Hand.SetActive(false);
             
         
     }
@@ -159,8 +140,9 @@ public class Level1 : MonoBehaviour
     public void BalanceClick()
     {
         float player_x = player.transform.position.x;
+        float player_y = player.transform.position.y;
 
-        if (Hand.activeSelf && player_x < 5 && player_x > 3)
+        if (Hand.activeSelf)
         {
 
             balancingScreen.SetActive(true);
@@ -218,7 +200,6 @@ public class Level1 : MonoBehaviour
         }
         balancingScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
-        balancing = true;
 
     }
 
@@ -261,7 +242,7 @@ public class Level1 : MonoBehaviour
 
         string order = customer1Text.text;
 
-            if (order == InHand.Name && player_x < -2.5)
+            if (order == InHand.Name)
             {
                 customer1.SetActive(false);
 
@@ -284,7 +265,6 @@ public class Level1 : MonoBehaviour
     public void CloseScreen()
     {
         balancingScreen.SetActive(false);
-        balancing = false;
         player.GetComponent<PlayerController>().balancing = false;
         if (Hand.activeSelf)
             ClearScreen();
@@ -309,84 +289,6 @@ public class Level1 : MonoBehaviour
     public void NextLevel()
     {
         SceneManager.LoadScene("Level2");
-    }
-
-    public bool CheckBalance()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (player_y > -1.13 && player_y < 1.55)
-        {
-            if (player_x > 3.86)
-                return true;
-        }
-        return false;
-    }
-
-    public bool CheckCustomer()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (player_y > -0.8 && player_y < 0.6)
-        {
-            if (player_x < -3.26)
-                return true;
-        }
-        return false;
-    }
-
-    public bool CheckFe()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (player_y > 0.82)
-        {
-            if (player_x > 2.1 && player_x < 2.9)
-                return true;
-        }
-        return false;
-    }
-
-    public bool CheckCl2()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (player_y < -1.2)
-        {
-            if (player_x > 2.1 && player_x < 2.9)
-                return true;
-        }
-        return false;
-    }
-
-    public bool CheckO2()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (player_y < -1.2)
-        {
-            if (player_x > -1.91 && player_x < -0.89)
-                return true;
-        }
-        return false;
-    }
-
-    public bool CheckTrash()
-    {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-
-        if (player_y > 0.82)
-        {
-            if (player_x > -0.91 && player_x < -0.21)
-                return true;
-        }
-        return false;
     }
 
 }
