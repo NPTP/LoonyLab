@@ -21,6 +21,13 @@ public class Level1 : MonoBehaviour
     public Text resultTotal;
     public Text customer1Text;
 
+    public GameObject CHover;
+    public GameObject O2Hover;
+    public GameObject H2Hover;
+    public GameObject BalanceHover;
+    public GameObject CustomerHover;
+    public GameObject TrashHover;
+
     public Text fix2; //Adding subscripts to element labels.
     public Text fix3;
 
@@ -45,33 +52,33 @@ public class Level1 : MonoBehaviour
     {
         // Create chemicals used in the level.
 
-        Chemical fe = new Chemical("Fe", 1, 0, false, Color.blue, "Fe");
-        Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, Color.red, "Cl");
-        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.green, "O");
+        Chemical c = new Chemical("C", 1, 0, false, Color.blue, "C");
+        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.red, "O");
+        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, Color.green, "H");
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, Color.yellow, "FeCl");
-        results[Tuple.Create(cl2, fe)] = new Chemical("FeCl" + sub_3, 3, 1, true, Color.yellow, "FeCl");
-        results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, Color.cyan, "FeO");
-        results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, Color.cyan, "FeO");
+        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, Color.yellow, "CO");
+        results[Tuple.Create(o2, c)] = new Chemical("CO" + sub_2, 2, 1, true, Color.yellow, "CO");
+        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.cyan, "HO");
+        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.cyan, "HO");
 
         // Add chemicals to list.
 
-        chemicals.Add(fe);
-        chemicals.Add(cl2);
+        chemicals.Add(c);
         chemicals.Add(o2);
+        chemicals.Add(h2);
 
         // Load orders for the level.
 
-        orders.Add("FeCl" + sub_3);
-        orders.Add("Fe" + sub_2 + "O" + sub_3);
-        orders.Add("FeCl" + sub_3);
+        orders.Add("CO" + sub_2);
+        orders.Add("H" + sub_2 + "O");
+        orders.Add("CO" + sub_2);
 
         // Fix subscripts.
 
-        fix2.text = "Cl" + sub_2;
-        fix3.text = "O" + sub_2;
+        fix2.text = "O" + sub_2;
+        fix3.text = "H" + sub_2;
 
         // Load customers for the level and have new ones appear as player completes orders.
 
@@ -108,6 +115,35 @@ public class Level1 : MonoBehaviour
         {
             ClearScreen();
         }
+
+        if (CheckBalance() && Hand.activeSelf && !InHand.Product)
+            BalanceHover.SetActive(true);
+        else
+            BalanceHover.SetActive(false);
+
+
+        if (CheckFe() && !Hand.activeSelf)
+            CHover.SetActive(true);
+        else
+            CHover.SetActive(false);
+
+        if (CheckCl2() && !Hand.activeSelf)
+            O2Hover.SetActive(true);
+        else
+            O2Hover.SetActive(false);
+
+        if (CheckCustomer() && InHand.Product && Hand.activeSelf)
+            CustomerHover.SetActive(true);
+        else
+            CustomerHover.SetActive(false);
+        if (CheckO2() && !Hand.activeSelf)
+            H2Hover.SetActive(true);
+        else
+            H2Hover.SetActive(false);
+        if (CheckTrash() && Hand.activeSelf)
+            TrashHover.SetActive(true);
+        else
+            TrashHover.SetActive(false);
     }
 
     public void GenerateCustomers()
@@ -133,7 +169,7 @@ public class Level1 : MonoBehaviour
         float player_y = player.transform.position.y;
 
         Chemical chem = chemicals[chemNum];
-            if (!Hand.activeSelf && (chemNum == 0 && player_x > 1.5 && player_y > 0.5) || (chemNum == 1 && player_y < -1.5 && player_x > 1.5) || (chemNum == 2))
+            if (!Hand.activeSelf)
             {
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
