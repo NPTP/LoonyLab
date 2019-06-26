@@ -85,6 +85,8 @@ public class TutorialControl : MonoBehaviour
 
         GenerateCustomers();
         NextClick();
+        player.GetComponent<PlayerController>().balancing = true;
+
     }
 
     // Update is called once per frame
@@ -314,6 +316,7 @@ public class TutorialControl : MonoBehaviour
             CArrow.SetActive(true);
             nextButton.SetActive(false);
             space_next = false;
+            player.GetComponent<PlayerController>().balancing = false;
 
         }
         if (num == 4)
@@ -326,17 +329,20 @@ public class TutorialControl : MonoBehaviour
         {
             balanceArrow.SetActive(false);
             O2Arrow.SetActive(true);
+            nextButton.SetActive(true);
         }
         if (num == 6)
         {
             O2Arrow.SetActive(false);
             balanceArrow.SetActive(true);
+            nextButton.SetActive(false);
         }
         if (num == 7)
         {
             tutorial_customer = true;
             customerArrow.SetActive(true);
             balanceArrow.SetActive(false);
+            nextButton.SetActive(true);
         }
         if (num == 8)
         {
@@ -359,6 +365,7 @@ public class TutorialControl : MonoBehaviour
         balancingScreen.SetActive(false);
         balancing = false;
         player.GetComponent<PlayerController>().balancing = false;
+        nextButton.SetActive(false);
         if (Hand.activeSelf)
             ClearScreen();
     }
