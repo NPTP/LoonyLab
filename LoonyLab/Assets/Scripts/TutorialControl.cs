@@ -82,6 +82,7 @@ public class TutorialControl : MonoBehaviour
         tutorialList.Add("You can see that the Carbon has been added to the station. Now let's go get some Oxygen and bring it over.");
         tutorialList.Add("Nice going, you're a natural at this! Now you can take your finished compound and give it to the customer.");
         tutorialList.Add("You did some great science today! Now it's time for you to test your skills and try completing tomorrow's orders on your own.");
+        tutorialList.Add("");
 
         GenerateCustomers();
         NextClick();
@@ -178,64 +179,67 @@ public class TutorialControl : MonoBehaviour
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
-        if (Hand.activeSelf && tutorial_balance && player_x < 5 && player_x > 3)
+        if (Hand.activeSelf && tutorial_balance)
         {
-
-            balancingScreen.SetActive(true);
-            Hand.SetActive(false);
-            if (balanceStn.Reactant1 == null)
+            if (!InHand.Product)
             {
-                balanceStn.Reactant1 = InHand;
-                balanceStn.QuantityR1 = 1;
-                chem1.text = "1  " + InHand.Name;
-                chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Molecules";
 
-            }
-            else
-            {
-                if (balanceStn.Reactant1 == InHand)
+                balancingScreen.SetActive(true);
+                Hand.SetActive(false);
+                if (balanceStn.Reactant1 == null)
                 {
-                    balanceStn.QuantityR1++;
-                    chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
-                    chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Molecules";
-                    UpdateBalanced();
+                    balanceStn.Reactant1 = InHand;
+                    balanceStn.QuantityR1 = 1;
+                    chem1.text = "1  " + InHand.Name;
+                    chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Molecules";
+
                 }
                 else
                 {
-                    if (balanceStn.Reactant2 == null)
+                    if (balanceStn.Reactant1 == InHand)
                     {
-                        balanceStn.Reactant2 = InHand;
-                        balanceStn.QuantityR2 = 1;
-                        chem2.text = "1  " + InHand.Name;
-                        chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Molecules";
-
-                        if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
-                        {
-                            balanceStn.Product = results[Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)];
-                            UpdateBalanced();
-                        }
-
+                        balanceStn.QuantityR1++;
+                        chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
+                        chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Molecules";
+                        UpdateBalanced();
                     }
                     else
                     {
-                        if (balanceStn.Reactant2 == InHand)
+                        if (balanceStn.Reactant2 == null)
                         {
-                            balanceStn.QuantityR2++;
-                            chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
-                            chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Molecules";
-                            UpdateBalanced();
+                            balanceStn.Reactant2 = InHand;
+                            balanceStn.QuantityR2 = 1;
+                            chem2.text = "1  " + InHand.Name;
+                            chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Molecules";
+
+                            if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
+                            {
+                                balanceStn.Product = results[Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)];
+                                UpdateBalanced();
+                            }
+
                         }
                         else
                         {
-                            balancingScreen.SetActive(false);
-                            Hand.SetActive(true);
+                            if (balanceStn.Reactant2 == InHand)
+                            {
+                                balanceStn.QuantityR2++;
+                                chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
+                                chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Molecules";
+                                UpdateBalanced();
+                            }
+                            else
+                            {
+                                balancingScreen.SetActive(false);
+                                Hand.SetActive(true);
+                            }
                         }
                     }
                 }
-            }
-            
-            NextClick();
 
+                NextClick();
+
+            }
         }
         balancingScreen.SetActive(true);
         balancing = true;
