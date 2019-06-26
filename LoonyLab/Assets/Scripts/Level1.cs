@@ -33,7 +33,10 @@ public class Level1 : MonoBehaviour
 
     private Chemical InHand; // Chemical player is currently holding. 
 
+    private List<string> TutorialList = new List<string>();
+
     private bool balancing = false;
+    private bool tutoral = false;
 
 
     private char sub_2 = (char)8322; // Subscript 2
@@ -84,6 +87,10 @@ public class Level1 : MonoBehaviour
 
         GenerateCustomers();
         InvokeRepeating("GenerateCustomers", 2.0f, 2.0f);
+
+        TutorialList.Add("This chemical reaction isn't finished yet! The number of Hydrogen molecules in the reactants is not the same as the number of Hydrogen molecules in the products.");
+        TutorialList.Add("4 Hydrogen molecules are needed, but you only have added 2! Go pick up another Hydrogen element and add it to the station!");
+
     }
 
     // Update is called once per frame
@@ -251,6 +258,10 @@ public class Level1 : MonoBehaviour
                     }
                 }
             }
+        }
+        if (balanceStn.Reactant1 == chemicals[2] && balanceStn.Reactant2 == chemicals[1] || balanceStn.Reactant1 == chemicals[1] && balanceStn.Reactant2 == chemicals[2])
+        {
+            tutoral = true;
         }
         balancingScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
