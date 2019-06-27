@@ -23,6 +23,7 @@ public class Level1 : MonoBehaviour
     public Text resultTotal;
     public Text customer1Text;
     public Text tutorialText;
+    public Text balanceHoverText;
 
     public GameObject CHover;
     public GameObject O2Hover;
@@ -89,6 +90,8 @@ public class Level1 : MonoBehaviour
         fix2.text = "O" + sub_2;
         fix3.text = "H" + sub_2;
 
+        InHand = c;
+
         // Load customers for the level and have new ones appear as player completes orders.
 
         GenerateCustomers();
@@ -128,13 +131,21 @@ public class Level1 : MonoBehaviour
                     TrashClick();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.C) && balancing)
+        else if (Input.GetKeyDown(KeyCode.R) && balancing)
         {
             ClearScreen();
         }
 
         if (CheckBalance() && Hand.activeSelf && !InHand.Product)
+        {
             BalanceHover.SetActive(true);
+            balanceHoverText.text = "Press SPACE to add item to balancing station.";
+        }
+        else if (CheckBalance())
+        {
+            BalanceHover.SetActive(true);
+            balanceHoverText.text = "Press SPACE to view items in balancing station.";
+        }
         else
             BalanceHover.SetActive(false);
 
@@ -213,7 +224,7 @@ public class Level1 : MonoBehaviour
     public void BalanceClick()
     { 
 
-        if (Hand.activeSelf)
+        if (Hand.activeSelf && !InHand.Product)
         {
 
             balancingScreen.SetActive(true);
@@ -265,6 +276,14 @@ public class Level1 : MonoBehaviour
                             balancingScreen.SetActive(false);
                             Hand.SetActive(true);
                         }
+                    }
+                }
+                if (balanceStn.Reactant1 != null && balanceStn.Reactant2 != null)
+                {
+                    if (!results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
+                    {
+                        result.text = "Wrong ingredients!";
+                        resultTotal.text = "Reset balancing station and try again!";
                     }
                 }
             }
