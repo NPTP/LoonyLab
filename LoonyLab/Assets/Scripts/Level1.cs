@@ -12,6 +12,8 @@ public class Level1 : MonoBehaviour
     public GameObject balancingScreen; // Screen that appears when balancing chemicals.
     public GameObject customer1; // First customer object. 
     public GameObject endScreen; // End of level screen.
+    public GameObject tutorial;
+    public GameObject nextButton;
 
     public Text chem1; //Text used in balancing screen.
     public Text chem2;
@@ -20,6 +22,7 @@ public class Level1 : MonoBehaviour
     public Text chem2Total;
     public Text resultTotal;
     public Text customer1Text;
+    public Text tutorialText;
 
     public GameObject CHover;
     public GameObject O2Hover;
@@ -36,7 +39,10 @@ public class Level1 : MonoBehaviour
     private List<string> TutorialList = new List<string>();
 
     private bool balancing = false;
-    private bool tutoral = false;
+    private bool tutorial_on = false;
+    private bool tutorial_finished = false;
+
+    private int num = 0;
 
 
     private char sub_2 = (char)8322; // Subscript 2
@@ -98,7 +104,11 @@ public class Level1 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (balancing)
+            if (tutorial_on && nextButton.activeSelf)
+            {
+                NextClick();
+            }
+            else if (balancing)
             {
                 CloseScreen();
             }
@@ -139,8 +149,11 @@ public class Level1 : MonoBehaviour
         else
             O2Hover.SetActive(false);
 
-        if (CheckCustomer() && InHand.Product && Hand.activeSelf)
-            CustomerHover.SetActive(true);
+        if (CheckCustomer() && Hand.activeSelf)
+        { 
+            if (InHand.Product)
+                CustomerHover.SetActive(true);
+        }
         else
             CustomerHover.SetActive(false);
         if (CheckO2() && !Hand.activeSelf)
@@ -172,11 +185,9 @@ public class Level1 : MonoBehaviour
     public void ChemicalClick(int chemNum)
     {
         // Allow player to pick up selected chemical if player is not already holding something. 
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
 
         Chemical chem = chemicals[chemNum];
-            if (!Hand.activeSelf)
+            if ((!Hand.activeSelf && !tutorial_on) || (chemNum == 2 && num == 2))
             {
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
@@ -200,10 +211,9 @@ public class Level1 : MonoBehaviour
     }
 
     public void BalanceClick()
-    {
-        float player_x = player.transform.position.x;
+    { 
 
-        if (Hand.activeSelf && player_x < 5 && player_x > 3)
+        if (Hand.activeSelf)
         {
 
             balancingScreen.SetActive(true);
@@ -259,15 +269,36 @@ public class Level1 : MonoBehaviour
                 }
             }
         }
-        if (balanceStn.Reactant1 == chemicals[2] && balanceStn.Reactant2 == chemicals[1] || balanceStn.Reactant1 == chemicals[1] && balanceStn.Reactant2 == chemicals[2])
+        if ((balanceStn.Reactant1 == chemicals[2] && balanceStn.Reactant2 == chemicals[1] || balanceStn.Reactant1 == chemicals[1] && balanceStn.Reactant2 == chemicals[2]) && !tutorial_finished)
         {
-            tutoral = true;
+            tutorial_on = true;
+            tutorial.SetActive(true);
+
         }
         balancingScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
         balancing = true;
-
+        tutorialText.text = TutorialList[0];
+        if (num == 2)
+        {
+            tutorial.SetActive(false);
+            tutorial_on = false;
+        }
+        num = 1;
     }
+
+    public void NextClick()
+    {
+        if (num == 1)
+        {
+            nextButton.SetActive(false);
+            tutorial_on = false;
+            tutorial_finished = true;
+        }
+        tutorialText.text = TutorialList[num];
+        num++;
+    }
+
 
     public void UpdateBalanced()
     {
