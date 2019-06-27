@@ -203,7 +203,8 @@ public class Level1 : MonoBehaviour
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
-                sr.color = InHand.Colour; 
+                sr.color = InHand.Colour;
+                
             }
         
     }

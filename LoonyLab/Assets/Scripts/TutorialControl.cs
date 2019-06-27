@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class TutorialControl : MonoBehaviour
 {
+
+    public static int chemNumPublic = 99;
+    public static bool chemClickEvent = false;
+    
     public GameObject player; // Player object.
     public GameObject Hand; // Player's hand (inventory).
     public GameObject balancingScreen; // Screen that appears when balancing chemicals.
@@ -163,6 +167,8 @@ public class TutorialControl : MonoBehaviour
             {
                 if ((chemNum == 0 && num == 4) || (chemNum == 1 && num == 6))
                 {
+                    chemClickEvent = true;
+                    chemNumPublic = chemNum;
                     Hand.SetActive(true);
                     SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                     InHand = chem;
