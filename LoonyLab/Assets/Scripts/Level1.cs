@@ -24,6 +24,7 @@ public class Level1 : MonoBehaviour
     public Text customer1Text;
     public Text tutorialText;
     public Text balanceHoverText;
+    public Text ordersDone;
 
     public GameObject CHover;
     public GameObject O2Hover;
@@ -44,6 +45,7 @@ public class Level1 : MonoBehaviour
     private bool tutorial_finished = false;
 
     private int num = 0;
+    private int ordersCompleted = 0;
 
 
     private char sub_2 = (char)8322; // Subscript 2
@@ -198,7 +200,7 @@ public class Level1 : MonoBehaviour
         // Allow player to pick up selected chemical if player is not already holding something. 
 
         Chemical chem = chemicals[chemNum];
-            if ((!Hand.activeSelf && !tutorial_on) || (chemNum == 2 && num == 2))
+            if ((!Hand.activeSelf && !tutorial.activeSelf) || (chemNum == 2 && num == 2))
             {
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
@@ -361,13 +363,15 @@ public class Level1 : MonoBehaviour
 
             if (order == InHand.Name && player_x < -2.5)
             {
-                customer1.SetActive(false);
+            customer1.SetActive(false);
+            ordersCompleted++;
+            ordersDone.text = ordersCompleted.ToString() + "/3";
 
-                Hand.SetActive(false);
-                if (orders.Count == 0)
-                {
-                    EndLevel();
-                }
+            Hand.SetActive(false);
+            if (orders.Count == 0)
+            {
+            EndLevel();
+            }
 
             }
         

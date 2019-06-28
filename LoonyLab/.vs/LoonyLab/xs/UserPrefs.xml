@@ -4,9 +4,9 @@
       <File FileName="Assets/Scripts/Timer.cs" Line="32" Column="72" />
       <File FileName="Assets/Scripts/Tutorial1.cs" Line="17" Column="145" />
       <File FileName="Assets/Scripts/GameControl.cs" Line="43" Column="1" />
-      <File FileName="Assets/Scripts/TutorialControl.cs" Line="184" Column="33" />
+      <File FileName="Assets/Scripts/TutorialControl.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/MainScreen.cs" Line="24" Column="1" />
-      <File FileName="Assets/Scripts/Level1.cs" Line="296" Column="38" />
+      <File FileName="Assets/Scripts/Level1.cs" Line="198" Column="1" />
       <File FileName="Assets/Scripts/Level2.cs" Line="268" Column="67" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="47" Column="1" />
     </Files>
