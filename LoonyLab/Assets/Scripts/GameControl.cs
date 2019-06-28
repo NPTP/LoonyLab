@@ -46,26 +46,15 @@ public class GameControl : MonoBehaviour
     {
         // Create chemicals used in the level.
 
-        Chemical fe = new Chemical("Fe", 1, 0, false, Color.blue, "Fe");
-        Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, Color.red, "Cl");
-        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.green, "O");
-        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, Color.magenta, "H");
+
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, Color.yellow, "FeCl");
-        results[Tuple.Create(cl2, fe)] = new Chemical("FeCl" + sub_3, 3, 1, true, Color.yellow, "FeCl");
-        results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, Color.cyan, "FeO");
-        results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, Color.cyan, "FeO");
-        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.black, "HO");
-        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.black, "HO");
+
 
         // Add chemicals to list.
 
-        chemicals.Add(fe);
-        chemicals.Add(cl2);
-        chemicals.Add(o2);
-        chemicals.Add(h2);
+       
 
         // Load orders for the level.
 
@@ -125,7 +114,7 @@ public class GameControl : MonoBehaviour
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
-                sr.color = InHand.Colour; 
+                
             }
         
     }
@@ -231,7 +220,6 @@ public class GameControl : MonoBehaviour
             InHand = balanceStn.Product;
 
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
-            sr.color = InHand.Colour;
         }
         else
         {
@@ -307,9 +295,9 @@ public class Chemical
     public int Subscript1;
     public int Subscript2;
     public bool Product;
-    public Color Colour;
+    public Sprite Colour;
 
-    public Chemical(string name, int sub1, int sub2, bool product, Color colour, string singleName)
+    public Chemical(string name, int sub1, int sub2, bool product, Sprite colour, string singleName)
     {
         Name = name;
         Subscript1 = sub1;

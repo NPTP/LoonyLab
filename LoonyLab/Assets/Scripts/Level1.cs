@@ -39,6 +39,7 @@ public class Level1 : MonoBehaviour
     private Chemical InHand; // Chemical player is currently holding. 
 
     private List<string> TutorialList = new List<string>();
+    public List<Sprite> molecules;
 
     private bool balancing = false;
     private bool tutorial_on = false;
@@ -64,16 +65,16 @@ public class Level1 : MonoBehaviour
     {
         // Create chemicals used in the level.
 
-        Chemical c = new Chemical("C", 1, 0, false, Color.blue, "C");
-        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.red, "O");
-        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, Color.green, "H");
+        Chemical c = new Chemical("C", 1, 0, false, molecules[0], "C");
+        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[5], "O");
+        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, molecules[2], "H");
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, Color.yellow, "CO");
-        results[Tuple.Create(o2, c)] = new Chemical("CO" + sub_2, 2, 1, true, Color.yellow, "CO");
-        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, Color.cyan, "HO");
-        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, Color.cyan, "HO");
+        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, molecules[7], "CO");
+        results[Tuple.Create(o2, c)] = new Chemical("CO" + sub_2, 2, 1, true, molecules[7], "CO");
+        results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, molecules[7], "HO");
+        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, molecules[7], "HO");
 
         // Add chemicals to list.
 
@@ -205,7 +206,7 @@ public class Level1 : MonoBehaviour
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
-                sr.color = InHand.Colour;
+                sr.sprite = InHand.Colour;
                 
             }
         
@@ -341,7 +342,7 @@ public class Level1 : MonoBehaviour
             InHand = balanceStn.Product;
 
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
-            sr.color = InHand.Colour;
+            sr.sprite = InHand.Colour;
         }
         else
         {

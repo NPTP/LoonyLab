@@ -1035,7 +1035,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1369,6 +1369,15 @@ MonoBehaviour:
   TrashHover: {fileID: 1864488904}
   fix2: {fileID: 1344518184}
   fix3: {fileID: 575443393}
+  molecules:
+  - {fileID: 21300000, guid: 31743d6bb9f7c4e9ea75975e0cee4669, type: 3}
+  - {fileID: 21300000, guid: 6ef75e708ecf24f17a8add81cf4bb431, type: 3}
+  - {fileID: 21300000, guid: a37500aa157f84102bbff8953190f24f, type: 3}
+  - {fileID: 21300000, guid: 88c84fa079c614f7d8ad306fb546e3fc, type: 3}
+  - {fileID: 21300000, guid: accd2f9024eb145bd80388a48b9fbad1, type: 3}
+  - {fileID: 21300000, guid: 51977ab8a30894ce3956757b4cc548a5, type: 3}
+  - {fileID: 21300000, guid: 1bf0d366391844b04a03ace645018d1d, type: 3}
+  - {fileID: 21300000, guid: 414c29df983fa4f959cdf2f00670d9b3, type: 3}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

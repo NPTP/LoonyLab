@@ -21,6 +21,8 @@ public class TutorialControl : MonoBehaviour
     public GameObject BalanceHover;
     public GameObject CustomerHover;
 
+    public List<Sprite> molecules;
+
     public Text chem1; //Text used in balancing screen.
     public Text chem2;
     public Text result;
@@ -65,13 +67,13 @@ public class TutorialControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Chemical c = new Chemical("C", 1, 0, false, Color.blue, "C");
-        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, Color.red, "O");
+        Chemical c = new Chemical("C", 1, 0, false, molecules[0], "C");
+        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[5], "O");
 
         chemicals.Add(c);
         chemicals.Add(o2);
 
-        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, Color.yellow, "CO");
+        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, molecules[7], "CO");
 
         orders.Add("CO" + sub_2);
 
@@ -172,7 +174,7 @@ public class TutorialControl : MonoBehaviour
                     Hand.SetActive(true);
                     SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                     InHand = chem;
-                    sr.color = InHand.Colour;
+                    sr.sprite = InHand.Colour;
                     NextClick();
                 }
             }
@@ -271,7 +273,7 @@ public class TutorialControl : MonoBehaviour
             InHand = balanceStn.Product;
 
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
-            sr.color = InHand.Colour;
+            sr.sprite = InHand.Colour;
         }
         else
         {
