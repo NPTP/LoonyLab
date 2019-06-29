@@ -26,5 +26,6 @@ public class trashScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         trashAnimator.SetBool("trashActive", false);
         trashClickEvent = false;
+        deliveryLightsOn = false;
     }
 }
