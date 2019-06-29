@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TutorialControl;
+using static StaticVars;
 
 public class cabinetScript : MonoBehaviour
 {
@@ -22,9 +22,10 @@ public class cabinetScript : MonoBehaviour
     }
 
     IEnumerator OpenCabinet() {
-        cabinetAnimator.SetBool("cabinetActive", true);
         cabinetAnimator.SetInteger("moleculeNum", chemNumPublic);
-        yield return new WaitForSeconds(1);
+        cabinetAnimator.SetBool("cabinetActive", true);
+        yield return new WaitForSeconds(0.5f);
         cabinetAnimator.SetBool("cabinetActive", false);
+        chemClickEvent = false;
     }
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using static StaticVars;
 
 public class Level1 : MonoBehaviour
 {
+
     public GameObject player; // Player object.
     public GameObject Hand; // Player's hand (inventory).
     public GameObject balancingScreen; // Screen that appears when balancing chemicals.
@@ -203,11 +205,12 @@ public class Level1 : MonoBehaviour
         Chemical chem = chemicals[chemNum];
             if ((!Hand.activeSelf && !tutorial.activeSelf) || (chemNum == 2 && num == 2))
             {
+                chemNumPublic = chemNum;
+                chemClickEvent = true;
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
                 sr.sprite = InHand.Colour;
-                
             }
         
     }
@@ -221,6 +224,7 @@ public class Level1 : MonoBehaviour
         float player_y = player.transform.position.y;
         if (player_x > -1.8 && player_x < 1 && player_y > -0.1)
             Hand.SetActive(false);
+            trashClickEvent = true;
             
         
     }
@@ -343,6 +347,7 @@ public class Level1 : MonoBehaviour
 
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
             sr.sprite = InHand.Colour;
+            deliveryLightsOn = true;
         }
         else
         {
@@ -362,25 +367,27 @@ public class Level1 : MonoBehaviour
 
         string order = customer1Text.text;
 
-            if (order == InHand.Name && player_x < -2.5)
-            {
-            customer1.SetActive(false);
-            ordersCompleted++;
-            ordersDone.text = ordersCompleted.ToString() + "/3";
+            if (order == InHand.Name && player_x < -2.5) {
+                customer1.SetActive(false);
+                ordersCompleted++;
+                ordersDone.text = ordersCompleted.ToString() + "/3";
 
-            Hand.SetActive(false);
-            if (orders.Count == 0)
-            {
-            EndLevel();
+                Hand.SetActive(false);
+                if (orders.Count == 0) {
+                    EndLevel();
+                }
+                deliveryLightsOn = false;
+                conveyorBeltEvent = true;
             }
-
-            }
-        
-
     }
 
     public void EndLevel()
     {
+        chemNumPublic = 99;
+        chemClickEvent = false;
+        trashClickEvent = false;
+        deliveryLightsOn = false;
+        conveyorBeltEvent = false;
         endScreen.SetActive(true);
     }
 
