@@ -389,6 +389,7 @@ public class Level1 : MonoBehaviour
         deliveryLightsOn = false;
         conveyorBeltEvent = false;
         endScreen.SetActive(true);
+        player.GetComponent<PlayerController>().balancing = true;
     }
 
     public void CloseScreen()

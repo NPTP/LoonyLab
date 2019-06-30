@@ -59,7 +59,9 @@ public class TutorialControl : MonoBehaviour
     public GameObject giantText;
     public Text giantName;
 
-    public GameObject nextButton; private int num = 0;
+    public GameObject nextButton;
+    public GameObject WASDbutton;
+    private int num = 0;
     private List<String> tutorialList= new List<String>();
 
     // Start is called before the first frame update
@@ -328,6 +330,7 @@ public class TutorialControl : MonoBehaviour
             customerArrow.SetActive(false);
             CArrow.SetActive(true);
             nextButton.SetActive(false);
+            WASDbutton.SetActive(true);
             space_next = false;
             player.GetComponent<PlayerController>().balancing = false;
 
@@ -343,12 +346,14 @@ public class TutorialControl : MonoBehaviour
             balanceArrow.SetActive(false);
             O2Arrow.SetActive(true);
             nextButton.SetActive(true);
+            WASDbutton.SetActive(false);
         }
         if (num == 6)
         {
             O2Arrow.SetActive(false);
             balanceArrow.SetActive(true);
             nextButton.SetActive(false);
+            WASDbutton.SetActive(true);
         }
         if (num == 7)
         {
@@ -356,11 +361,13 @@ public class TutorialControl : MonoBehaviour
             customerArrow.SetActive(true);
             balanceArrow.SetActive(false);
             nextButton.SetActive(true);
+            WASDbutton.SetActive(false);
         }
         if (num == 8)
         {
             customerArrow.SetActive(false);
             nextButton.SetActive(true);
+            WASDbutton.SetActive(false);
             space_next = true;
         }
         if (num == 9)
@@ -379,6 +386,7 @@ public class TutorialControl : MonoBehaviour
         balancing = false;
         player.GetComponent<PlayerController>().balancing = false;
         nextButton.SetActive(false);
+        WASDbutton.SetActive(true);
         if (Hand.activeSelf)
             ClearScreen();
     }
