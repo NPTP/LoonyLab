@@ -207,6 +207,7 @@ public class Level1 : MonoBehaviour
             {
                 chemNumPublic = chemNum;
                 chemClickEvent = true;
+                FindObjectOfType<AudioManager>().Play("cabinetUse");
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
@@ -224,6 +225,7 @@ public class Level1 : MonoBehaviour
         float player_y = player.transform.position.y;
         if (player_x > -1.8 && player_x < 1 && player_y > -0.1)
             Hand.SetActive(false);
+            FindObjectOfType<AudioManager>().Play("trashUse");
             trashClickEvent = true;
             
         
@@ -237,6 +239,8 @@ public class Level1 : MonoBehaviour
 
             balancingScreen.SetActive(true);
             Hand.SetActive(false);
+            FindObjectOfType<AudioManager>().Play("addToBalStation");
+
             if (balanceStn.Reactant1 == null)
             {
                 balanceStn.Reactant1 = InHand;
@@ -292,6 +296,7 @@ public class Level1 : MonoBehaviour
                     {
                         result.text = "Wrong ingredients!";
                         resultTotal.text = "Reset balancing station and try again!";
+                        FindObjectOfType<AudioManager>().Play("incorrectIngredient");
                     }
                 }
             }
@@ -302,6 +307,7 @@ public class Level1 : MonoBehaviour
             tutorial.SetActive(true);
 
         }
+        FindObjectOfType<AudioManager>().Play("viewBalStation");
         balancingScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
         balancing = true;
@@ -347,6 +353,7 @@ public class Level1 : MonoBehaviour
 
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
             sr.sprite = InHand.Colour;
+            FindObjectOfType<AudioManager>().Play("successBalance");
             deliveryLightsOn = true;
         }
         else
@@ -378,6 +385,7 @@ public class Level1 : MonoBehaviour
                 }
                 deliveryLightsOn = false;
                 conveyorBeltEvent = true;
+                FindObjectOfType<AudioManager>().Play("deliverCompound");
             }
     }
 
@@ -388,6 +396,7 @@ public class Level1 : MonoBehaviour
         trashClickEvent = false;
         deliveryLightsOn = false;
         conveyorBeltEvent = false;
+        FindObjectOfType<AudioManager>().Play("winLevel");
         endScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
     }
@@ -403,6 +412,7 @@ public class Level1 : MonoBehaviour
 
     public void ClearScreen()
     {
+        FindObjectOfType<AudioManager>().Play("clearBalStation");
         balanceStn.Reactant1 = null;
         balanceStn.Reactant2 = null;
         balanceStn.QuantityR1 = 0;

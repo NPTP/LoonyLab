@@ -171,6 +171,7 @@ public class TutorialControl : MonoBehaviour
                 {
                     chemNumPublic = chemNum;
                     chemClickEvent = true;
+                    FindObjectOfType<AudioManager>().Play("cabinetUse");
                     Hand.SetActive(true);
                     SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                     InHand = chem;
@@ -194,6 +195,8 @@ public class TutorialControl : MonoBehaviour
 
                 balancingScreen.SetActive(true);
                 Hand.SetActive(false);
+                FindObjectOfType<AudioManager>().Play("addToBalStation");
+
                 if (balanceStn.Reactant1 == null)
                 {
                     balanceStn.Reactant1 = InHand;
@@ -249,6 +252,7 @@ public class TutorialControl : MonoBehaviour
 
             }
         }
+        FindObjectOfType<AudioManager>().Play("viewBalStation");
         balancingScreen.SetActive(true);
         balancing = true;
         player.GetComponent<PlayerController>().balancing = true;
@@ -275,6 +279,7 @@ public class TutorialControl : MonoBehaviour
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
             sr.sprite = InHand.Colour;
 
+            FindObjectOfType<AudioManager>().Play("successBalance");
             deliveryLightsOn = true;
         }
         else
@@ -307,6 +312,7 @@ public class TutorialControl : MonoBehaviour
                 Hand.SetActive(false);
                 deliveryLightsOn = false;
                 conveyorBeltEvent = true;
+                FindObjectOfType<AudioManager>().Play("deliverCompound");
                 NextClick();
             }
         }
