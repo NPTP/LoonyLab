@@ -116,6 +116,10 @@ public class Level1 : MonoBehaviour
             {
                 NextClick();
             }
+            else if (endScreen.activeSelf)
+            {
+                NextLevel();
+            }
             else if (balancing)
             {
                 CloseScreen();
