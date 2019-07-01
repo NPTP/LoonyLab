@@ -341,7 +341,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LEVEL 1
+  m_Text: LEVEL 2
 --- !u!222 &68276082
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0/3
+  m_Text: 0/4
 --- !u!222 &212165042
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 228319035}
   - component: {fileID: 228319034}
   m_Layer: 0
-  m_Name: C
+  m_Name: N2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: C
+  m_Text: N2
 --- !u!222 &228319035
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1725,6 +1725,7 @@ MonoBehaviour:
   BalanceHover: {fileID: 342625512}
   CustomerHover: {fileID: 87924458}
   TrashHover: {fileID: 1864488904}
+  fix1: {fileID: 228319034}
   fix2: {fileID: 1344518184}
   fix3: {fileID: 575443393}
   molecules:
@@ -2529,7 +2530,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press SPACE to pick up Carbon
+  m_Text: Press SPACE to pick up Nitrogen
 --- !u!222 &781687911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4942,7 +4943,7 @@ GameObject:
   - component: {fileID: 1818039361}
   - component: {fileID: 1818039360}
   m_Layer: 5
-  m_Name: CHover
+  m_Name: N2Hover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

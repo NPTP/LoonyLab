@@ -102,7 +102,7 @@ public class Level1 : MonoBehaviour
         GenerateCustomers();
         InvokeRepeating("GenerateCustomers", 2.0f, 2.0f);
 
-        TutorialList.Add("This chemical reaction isn't finished yet! The number of Hydrogen molecules in the reactants is not the same as the number of Hydrogen molecules in the products.");
+        TutorialList.Add("The left side of the equation shows the total # of molecules you've added to the station. The right side shows how many more you need for the equation to be balanced.");
         TutorialList.Add("4 Hydrogen molecules are needed, but you only have added 2! Go pick up another Hydrogen element and add it to the station!");
 
     }

@@ -32,6 +32,7 @@ public class Level2 : MonoBehaviour
     public GameObject CustomerHover;
     public GameObject TrashHover;
 
+    public Text fix1;
     public Text fix2; //Adding subscripts to element labels.
     public Text fix3;
 
@@ -60,35 +61,37 @@ public class Level2 : MonoBehaviour
     {
         // Create chemicals used in the level.
 
-        Chemical c = new Chemical("C", 1, 0, false, molecules[0], "C");
-        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[5], "O");
-        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, molecules[2], "H");
+        Chemical n2 = new Chemical("N"+sub_2, 2, 0, false, molecules[1], "N");
+        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[2], "O");
+        Chemical h2 = new Chemical("H" + sub_2, 2, 0, false, molecules[5], "H");
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(c, o2)] = new Chemical("CO" + sub_2, 1, 2, true, molecules[7], "CO");
-        results[Tuple.Create(o2, c)] = new Chemical("CO" + sub_2, 2, 1, true, molecules[7], "CO");
+        results[Tuple.Create(n2, h2)] = new Chemical("NH" + sub_3, 1, 3, true, molecules[7], "NH");
+        results[Tuple.Create(h2, n2)] = new Chemical("NH" + sub_3, 3, 1, true, molecules[7], "NH");
         results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, molecules[7], "HO");
         results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, molecules[7], "HO");
 
         // Add chemicals to list.
 
-        chemicals.Add(c);
+        chemicals.Add(n2);
         chemicals.Add(o2);
         chemicals.Add(h2);
 
         // Load orders for the level.
 
-        orders.Add("CO" + sub_2);
         orders.Add("H" + sub_2 + "O");
-        orders.Add("CO" + sub_2);
+        orders.Add("NH"+sub_3);
+        orders.Add("H" + sub_2 + "O");
+        orders.Add("NH" + sub_3);
 
         // Fix subscripts.
 
+        fix1.text = "N" + sub_2;
         fix2.text = "O" + sub_2;
         fix3.text = "H" + sub_2;
 
-        InHand = c;
+        InHand = n2;
 
         // Load customers for the level and have new ones appear as player completes orders.
 
@@ -331,15 +334,13 @@ public class Level2 : MonoBehaviour
 
     public void CustomerClick()
     {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
 
         string order = customer1Text.text;
 
-            if (order == InHand.Name && player_x < -2.5) {
+            if (order == InHand.Name) {
                 customer1.SetActive(false);
                 ordersCompleted++;
-                ordersDone.text = ordersCompleted.ToString() + "/3";
+                ordersDone.text = ordersCompleted.ToString() + "/4";
 
                 Hand.SetActive(false);
                 if (orders.Count == 0) {
