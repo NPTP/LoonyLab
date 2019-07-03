@@ -391,7 +391,7 @@ public class Level3 : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("MainScreen");
     }
 
     public bool CheckBalance()
