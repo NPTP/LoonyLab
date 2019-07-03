@@ -81,8 +81,8 @@ public class Level3 : MonoBehaviour
         // Load orders for the level.
 
         orders.Add("CO");
-        orders.Add("NH"+sub_3);
         orders.Add("N" + sub_2 + "O");
+        orders.Add("CO");
 
         // Fix subscripts.
 

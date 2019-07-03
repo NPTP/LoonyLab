@@ -79,7 +79,7 @@ public class TutorialControl : MonoBehaviour
 
         fix2.text = "O" + sub_2;
 
-        tutorialList.Add("Here we are! This lab is where you're going to be making all of the chemicals and delivering the orders!");
+        tutorialList.Add("Welcome to the loony lab! This is where you're going to be making all of the chemicals and delivering the orders!");
         tutorialList.Add("And here's your first customer! Since this is your first day, I'll lead you through the steps to make her order.");
         tutorialList.Add("This customer is ordering CO" + sub_2 + "! It is made up of Carbon molecules and Oxygen molecules.");
         tutorialList.Add("This is where you come in! Let's get started by going over to the chemical cabinet and picking up a Carbon molecule.");

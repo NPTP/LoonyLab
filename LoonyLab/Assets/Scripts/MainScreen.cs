@@ -19,7 +19,7 @@ public class MainScreen : MonoBehaviour
 
     public void PlayClick()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("TutorialLab");
     }
 
 }
