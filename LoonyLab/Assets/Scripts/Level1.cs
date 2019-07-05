@@ -225,12 +225,10 @@ public class Level1 : MonoBehaviour
     { 
         // Allow player to throwout whatever chemical they are currently holding. 
 
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
-        if (player_x > -1.8 && player_x < 1 && player_y > -0.1)
-            Hand.SetActive(false);
-            FindObjectOfType<AudioManager>().Play("trashUse");
-            trashClickEvent = true;
+        Hand.SetActive(false);
+        InHand = chemicals[0];
+        FindObjectOfType<AudioManager>().Play("trashUse");
+        trashClickEvent = true;
             
         
     }
@@ -238,9 +236,8 @@ public class Level1 : MonoBehaviour
     public void BalanceClick()
     { 
 
-        if (Hand.activeSelf && !InHand.Product)
+        if (Hand.activeSelf && !InHand.Product && (balanceStn.Reactant1 == null || balanceStn.Reactant2 == null || InHand == balanceStn.Reactant1 || InHand == balanceStn.Reactant2))
         {
-
             balancingScreen.SetActive(true);
             Hand.SetActive(false);
             FindObjectOfType<AudioManager>().Play("addToBalStation");
@@ -305,7 +302,7 @@ public class Level1 : MonoBehaviour
                 }
             }
         }
-        if ((balanceStn.Reactant1 == chemicals[2] && balanceStn.Reactant2 == chemicals[1] || balanceStn.Reactant1 == chemicals[1] && balanceStn.Reactant2 == chemicals[2]) && !tutorial_finished)
+        if ((balanceStn.Reactant1 == chemicals[2] && balanceStn.Reactant2 == chemicals[1] || balanceStn.Reactant1 == chemicals[1] && balanceStn.Reactant2 == chemicals[2]) && !tutorial_finished && orders.Count < 2)
         {
             tutorial_on = true;
             tutorial.SetActive(true);
@@ -373,13 +370,12 @@ public class Level1 : MonoBehaviour
 
     public void CustomerClick()
     {
-        float player_x = player.transform.position.x;
-        float player_y = player.transform.position.y;
 
         string order = customer1Text.text;
 
-            if (order == InHand.Name && player_x < -2.5) {
+        if (order == InHand.Name) {
                 customer1.SetActive(false);
+            customer1Text.text = "";
                 ordersCompleted++;
                 ordersDone.text = ordersCompleted.ToString() + "/3";
 

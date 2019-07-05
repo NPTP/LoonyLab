@@ -314,6 +314,7 @@ public class TutorialControl : MonoBehaviour
                 conveyorBeltEvent = true;
                 FindObjectOfType<AudioManager>().Play("deliverCompound");
                 NextClick();
+                customer1Text.text = "";
             }
         }
 

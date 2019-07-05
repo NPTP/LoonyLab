@@ -4338,6 +4338,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5590427248830512411, guid: 0dbfab465bd2149da85fcf4301d2f123,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 973021445}
     - target: {fileID: 5590427248830512409, guid: 0dbfab465bd2149da85fcf4301d2f123,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -4373,11 +4378,6 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.005
       objectReference: {fileID: 0}
-    - target: {fileID: 5590427248830512411, guid: 0dbfab465bd2149da85fcf4301d2f123,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 973021445}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dbfab465bd2149da85fcf4301d2f123, type: 3}
 --- !u!4 &1489723865 stripped
@@ -4740,8 +4740,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 150}
+  m_AnchoredPosition: {x: 2, y: -10}
+  m_SizeDelta: {x: 295, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1720144652
 MonoBehaviour:

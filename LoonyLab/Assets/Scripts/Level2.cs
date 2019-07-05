@@ -214,6 +214,7 @@ public class Level2 : MonoBehaviour
     { 
         // Allow player to throwout whatever chemical they are currently holding. 
         Hand.SetActive(false);
+        InHand = chemicals[0];
         FindObjectOfType<AudioManager>().Play("trashUse");
         trashClickEvent = true;
             
@@ -340,6 +341,7 @@ public class Level2 : MonoBehaviour
             if (order == InHand.Name) {
                 customer1.SetActive(false);
                 ordersCompleted++;
+            customer1Text.text = "";
                 ordersDone.text = ordersCompleted.ToString() + "/4";
 
                 Hand.SetActive(false);
