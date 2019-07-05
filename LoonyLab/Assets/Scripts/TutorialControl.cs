@@ -81,7 +81,7 @@ public class TutorialControl : MonoBehaviour
 
         tutorialList.Add("Welcome to the loony lab! This is where you're going to be making all of the chemicals and delivering the orders!");
         tutorialList.Add("And here's your first customer! Since this is your first day, I'll lead you through the steps to make her order.");
-        tutorialList.Add("This customer is ordering CO" + sub_2 + "! It is made up of Carbon molecules and Oxygen molecules.");
+        tutorialList.Add("This customer is ordering CO" + sub_2 + "! It is made up of Carbon atoms and Oxygen atoms.");
         tutorialList.Add("This is where you come in! Let's get started by going over to the chemical cabinet and picking up a Carbon molecule.");
         tutorialList.Add("Awesome job! Now that you have the element you need, let's bring it over to the balancing station.");
         tutorialList.Add("You can see that the Carbon has been added to the station. Now let's go get some Oxygen and bring it over.");
@@ -201,7 +201,7 @@ public class TutorialControl : MonoBehaviour
                     balanceStn.Reactant1 = InHand;
                     balanceStn.QuantityR1 = 1;
                     chem1.text = "1  " + InHand.Name;
-                    chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Molecules";
+                    chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Atoms";
 
                 }
                 else
@@ -210,7 +210,7 @@ public class TutorialControl : MonoBehaviour
                     {
                         balanceStn.QuantityR1++;
                         chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
-                        chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Molecules";
+                        chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Atoms";
                         UpdateBalanced();
                     }
                     else
@@ -220,7 +220,7 @@ public class TutorialControl : MonoBehaviour
                             balanceStn.Reactant2 = InHand;
                             balanceStn.QuantityR2 = 1;
                             chem2.text = "1  " + InHand.Name;
-                            chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Molecules";
+                            chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Atoms";
 
                             if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
                             {
@@ -235,7 +235,7 @@ public class TutorialControl : MonoBehaviour
                             {
                                 balanceStn.QuantityR2++;
                                 chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
-                                chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Molecules";
+                                chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Atoms";
                                 UpdateBalanced();
                             }
                             else

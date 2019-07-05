@@ -244,7 +244,7 @@ public class Level3 : MonoBehaviour
                 {
                     balanceStn.QuantityR1++;
                     chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
-                    chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Molecules";
+                    chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Atoms";
                     UpdateBalanced();
                 }
                 else
@@ -254,7 +254,7 @@ public class Level3 : MonoBehaviour
                         balanceStn.Reactant2 = InHand;
                         balanceStn.QuantityR2 = 1;
                         chem2.text = "1  " + InHand.Name;
-                        chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Molecules";
+                        chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Atoms";
 
                         if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
                         {
@@ -269,7 +269,7 @@ public class Level3 : MonoBehaviour
                         {
                             balanceStn.QuantityR2++;
                             chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
-                            chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Molecules";
+                            chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Atoms";
                             UpdateBalanced();
                         }
                         else

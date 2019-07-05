@@ -102,8 +102,8 @@ public class Level1 : MonoBehaviour
         GenerateCustomers();
         InvokeRepeating("GenerateCustomers", 2.0f, 2.0f);
 
-        TutorialList.Add("The left side of the equation shows the total # of molecules you've added to the station. The right side shows how many more you need for the equation to be balanced.");
-        TutorialList.Add("4 Hydrogen molecules are needed, but you only have added 2! Go pick up another Hydrogen element and add it to the station!");
+        TutorialList.Add("The left side of the equation shows the total # of atoms you've added to the station. The right side shows how many more you need for the equation to be balanced.");
+        TutorialList.Add("4 Hydrogen atoms are needed, but you only have added 2! Go pick up another Hydrogen molecule and add it to the station!");
 
     }
 
@@ -247,7 +247,7 @@ public class Level1 : MonoBehaviour
                 balanceStn.Reactant1 = InHand;
                 balanceStn.QuantityR1 = 1;
                 chem1.text = "1  " + InHand.Name;
-                chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Molecules";
+                chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Atoms";
 
             }
             else
@@ -256,7 +256,7 @@ public class Level1 : MonoBehaviour
                 {
                     balanceStn.QuantityR1++;
                     chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
-                    chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Molecules";
+                    chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Atoms";
                     UpdateBalanced();
                 }
                 else
@@ -266,7 +266,7 @@ public class Level1 : MonoBehaviour
                         balanceStn.Reactant2 = InHand;
                         balanceStn.QuantityR2 = 1;
                         chem2.text = "1  " + InHand.Name;
-                        chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Molecules";
+                        chem2Total.text = "Total: " + InHand.Subscript1 + " " + InHand.SingleName + " Atoms";
 
                         if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
                         {
@@ -281,7 +281,7 @@ public class Level1 : MonoBehaviour
                         {
                             balanceStn.QuantityR2++;
                             chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
-                            chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Molecules";
+                            chem2Total.text = "Total: " + (InHand.Subscript1 * balanceStn.QuantityR2).ToString() + " " + InHand.SingleName + " Atoms";
                             UpdateBalanced();
                         }
                         else
