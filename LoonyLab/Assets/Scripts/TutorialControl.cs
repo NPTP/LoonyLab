@@ -90,7 +90,6 @@ public class TutorialControl : MonoBehaviour
         tutorialList.Add("You did some great science today! Now it's time for you to test your skills and try completing tomorrow's orders on your own.");
         tutorialList.Add("");
 
-        GenerateCustomers();
         NextClick();
         player.GetComponent<PlayerController>().balancing = true;
 
@@ -325,6 +324,7 @@ public class TutorialControl : MonoBehaviour
         if (num == 1)
         {
             customerArrow.SetActive(true);
+            GenerateCustomers();
         }
         if (num == 2)
         {
