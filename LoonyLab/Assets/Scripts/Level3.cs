@@ -67,8 +67,8 @@ public class Level3 : MonoBehaviour
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(n2, o2)] = new Chemical("N" + sub_2 + "O", 1, 2, true, molecules[7], "NO");
-        results[Tuple.Create(o2, n2)] = new Chemical("N" + sub_2, 2, 1, true, molecules[7], "NO");
+        results[Tuple.Create(n2, o2)] = new Chemical("N" + sub_2 + "O", 2, 1, true, molecules[7], "NO");
+        results[Tuple.Create(o2, n2)] = new Chemical("N" + sub_2, 1, 2, true, molecules[7], "NO");
         results[Tuple.Create(c, o2)] = new Chemical("CO", 1, 1, true, molecules[7], "CO");
         results[Tuple.Create(o2, c)] = new Chemical("CO", 1, 1, true, molecules[7], "CO");
 
