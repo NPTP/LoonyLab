@@ -600,7 +600,7 @@ public class Level1 : MonoBehaviour
 
             for (int i = 0; i < goal; i++)
             {
-                for (int j = 0; j < balanceStn.Product.Subscript1; j++)
+                for (int j = 2; j >= 3- balanceStn.Product.Subscript1; j--)
                 {
                     if (total_used < total_available)
                     {

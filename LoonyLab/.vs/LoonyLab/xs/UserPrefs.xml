@@ -6,7 +6,7 @@
       <File FileName="Assets/Scripts/GameControl.cs" Line="57" Column="8" />
       <File FileName="Assets/Scripts/TutorialControl.cs" Line="318" Column="10" />
       <File FileName="Assets/Scripts/MainScreen.cs" Line="22" Column="44" />
-      <File FileName="Assets/Scripts/Level1.cs" Line="329" Column="53" />
+      <File FileName="Assets/Scripts/Level1.cs" Line="602" Column="14" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="47" Column="1" />
       <File FileName="Assets/Scripts/Level2.cs" Line="344" Column="37" />
       <File FileName="Assets/Scripts/Level3.cs" Line="344" Column="37" />
@@ -27,7 +27,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="df57279a-c48d-41e2-b404-d8ab3747c417" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="62cdc0df-c9d9-4014-a95a-46c1c211987a" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
