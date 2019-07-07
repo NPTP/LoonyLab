@@ -17,6 +17,32 @@ public class Level1 : MonoBehaviour
     public GameObject tutorial;
     public GameObject nextButton;
 
+    public List<GameObject> sec1_row0;
+    public List<GameObject> sec1_row1;
+    public List<GameObject> sec1_row2;
+    public List<GameObject> sec1_row3;
+
+    public List<GameObject> sec2_row0;
+    public List<GameObject> sec2_row1;
+    public List<GameObject> sec2_row2;
+    public List<GameObject> sec2_row3;
+
+    public List<GameObject> sec3_row0;
+    public List<GameObject> sec3_row1;
+    public List<GameObject> sec3_row2;
+    public List<GameObject> sec3_row3;
+
+    public List<GameObject> sec4_row0;
+    public List<GameObject> sec4_row1;
+    public List<GameObject> sec4_row2;
+    public List<GameObject> sec4_row3;
+
+    private List<List<GameObject>> section1 = new List<List<GameObject>>();
+    private List<List<GameObject>> section2 = new List<List<GameObject>>();
+    private List<List<GameObject>> section3 = new List<List<GameObject>>();
+    private List<List<GameObject>> section4 = new List<List<GameObject>>();
+
+
     public Text chem1; //Text used in balancing screen.
     public Text chem2;
     public Text result;
@@ -104,6 +130,26 @@ public class Level1 : MonoBehaviour
 
         TutorialList.Add("The left side of the equation shows the total # of atoms you've added to the station. The right side shows how many more you need for the equation to be balanced.");
         TutorialList.Add("4 Hydrogen atoms are needed, but you only have added 2! Go pick up another Hydrogen molecule and add it to the station!");
+
+        section1.Add(sec1_row0);
+        section1.Add(sec1_row1);
+        section1.Add(sec1_row2);
+        section1.Add(sec1_row3);
+
+        section2.Add(sec2_row0);
+        section2.Add(sec2_row1);
+        section2.Add(sec2_row2);
+        section2.Add(sec2_row3);
+
+        section3.Add(sec3_row0);
+        section3.Add(sec3_row1);
+        section3.Add(sec3_row2);
+        section3.Add(sec3_row3);
+
+        section4.Add(sec4_row0);
+        section4.Add(sec4_row1);
+        section4.Add(sec4_row2);
+        section4.Add(sec4_row3);
 
     }
 
@@ -252,12 +298,13 @@ public class Level1 : MonoBehaviour
             }
             else
             {
-                if (balanceStn.Reactant1 == InHand)
+                if (balanceStn.Reactant1 == InHand && balanceStn.QuantityR1 < 4)
                 {
                     balanceStn.QuantityR1++;
                     chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
                     chem1Total.text = "Total: " + (balanceStn.Reactant1.Subscript1 * balanceStn.QuantityR1).ToString() + " " + InHand.SingleName + " Atoms";
-                    UpdateBalanced();
+                    if (balanceStn.Product != null && balanceStn.Reactant2 != null)
+                        UpdateBalanced();
                 }
                 else
                 {
@@ -277,7 +324,7 @@ public class Level1 : MonoBehaviour
                     }
                     else
                     {
-                        if (balanceStn.Reactant2 == InHand)
+                        if (balanceStn.Reactant2 == InHand && balanceStn.QuantityR2 < 4)
                         {
                             balanceStn.QuantityR2++;
                             chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
@@ -308,6 +355,7 @@ public class Level1 : MonoBehaviour
             tutorial.SetActive(true);
 
         }
+        DisplayAtomImages();
         FindObjectOfType<AudioManager>().Play("viewBalStation");
         balancingScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
@@ -365,6 +413,7 @@ public class Level1 : MonoBehaviour
 
             resultTotal.text = text1 + text2 + " Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
         }
+
     }
 
 
@@ -425,6 +474,8 @@ public class Level1 : MonoBehaviour
         chem1Total.text = "";
         chem2Total.text = "";
         resultTotal.text = "";
+
+        ResetAtomImages();
     }
 
     public void NextLevel()
@@ -509,6 +560,95 @@ public class Level1 : MonoBehaviour
         }
         return false;
     }
+
+    public void DisplayAtomImages()
+    {
+        if (balanceStn.Reactant1 != null)
+        {
+            for (int i = 0; i < balanceStn.QuantityR1; i++)
+            {
+                for (int j = 0; j < balanceStn.Reactant1.Subscript1; j++)
+                {
+                    section1[i][j].SetActive(true);
+                    Image sr = section1[i][j].GetComponent<Image>();
+                    sr.sprite = balanceStn.Reactant1.Colour;
+                }
+            }
+        }
+
+        if (balanceStn.Reactant2 != null)
+        {
+            for (int i = 0; i < balanceStn.QuantityR2; i++)
+            {
+                for (int j = 0; j < balanceStn.Reactant2.Subscript1; j++)
+                {
+                    section2[i][j].SetActive(true);
+                    Image sr = section2[i][j].GetComponent<Image>();
+                    sr.sprite = balanceStn.Reactant2.Colour;
+                }
+            }
+        }
+
+        if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
+        {
+            int total_used = 0;
+            int total_available = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
+
+            int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            for (int i = 0; i < goal; i++)
+            {
+                for (int j = 0; j < balanceStn.Product.Subscript1; j++)
+                {
+                    if (total_used < total_available)
+                    {
+                        section3[i][j].SetActive(true);
+                        Image sr = section3[i][j].GetComponent<Image>();
+                        sr.sprite = balanceStn.Reactant1.Colour;
+                        total_used++;
+                    }
+                }
+            }
+
+            total_used = 0;
+            total_available = balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1;
+
+            for (int i = 0; i < goal; i++)
+            {
+                for (int j = 0; j < balanceStn.Product.Subscript2; j++)
+                {
+                    if (total_used < total_available)
+                    {
+                        section4[i][j].SetActive(true);
+                        Image sr = section4[i][j].GetComponent<Image>();
+                        sr.sprite = balanceStn.Reactant2.Colour;
+                        total_used++;
+                    }
+                }
+            }
+
+
+
+        }
+
+    }
+
+    public void ResetAtomImages()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                section1[i][j].SetActive(false);
+                section2[i][j].SetActive(false);
+                section3[i][j].SetActive(false);
+                section4[i][j].SetActive(false);
+            }
+        }
+    }
+
 
 }
 
