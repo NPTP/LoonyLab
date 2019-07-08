@@ -298,7 +298,7 @@ public class Level1 : MonoBehaviour
             }
             else
             {
-                if (balanceStn.Reactant1 == InHand && balanceStn.QuantityR1 < 4)
+                if (balanceStn.Reactant1 == InHand && CheckAddItem())
                 {
                     balanceStn.QuantityR1++;
                     chem1.text = balanceStn.QuantityR1.ToString() + " " + InHand.Name;
@@ -324,7 +324,7 @@ public class Level1 : MonoBehaviour
                     }
                     else
                     {
-                        if (balanceStn.Reactant2 == InHand && balanceStn.QuantityR2 < 4)
+                        if (balanceStn.Reactant2 == InHand && CheckAddItem())
                         {
                             balanceStn.QuantityR2++;
                             chem2.text = balanceStn.QuantityR2.ToString() + " " + InHand.Name;
@@ -647,6 +647,28 @@ public class Level1 : MonoBehaviour
                 section4[i][j].SetActive(false);
             }
         }
+    }
+
+    public bool CheckAddItem()
+    {
+        if (InHand == balanceStn.Reactant1 && balanceStn.Reactant2 != null)
+        {
+            int num1 = (int)Math.Ceiling((balanceStn.QuantityR1 + 1) * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            return (balanceStn.QuantityR1 < 4 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant2)
+        {
+            int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling((balanceStn.QuantityR2 + 1) * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            return (balanceStn.QuantityR2 < 4 && goal < 5);
+        }
+        return true;
+
     }
 
 
