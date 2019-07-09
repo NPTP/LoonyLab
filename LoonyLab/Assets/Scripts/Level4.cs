@@ -6,7 +6,7 @@ using System;
 using UnityEngine.SceneManagement;
 using static StaticVars;
 
-public class Level3 : MonoBehaviour
+public class Level4 : MonoBehaviour
 {
 
     public GameObject player; // Player object.
@@ -87,36 +87,37 @@ public class Level3 : MonoBehaviour
     {
         // Create chemicals used in the level.
 
-        Chemical c = new Chemical("C", 1, 0, false, molecules[6], "C");
+        Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, molecules[6], "Cl");
         Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[4], "O");
-        Chemical n2 = new Chemical("N" + sub_2, 2, 0, false, molecules[5], "N");
+        Chemical fe = new Chemical("Fe" + sub_2, 1, 0, false, molecules[5], "F");
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(n2, o2)] = new Chemical("N" + sub_2 + "O", 2, 1, true, molecules[7], "NO");
-        results[Tuple.Create(o2, n2)] = new Chemical("N" + sub_2 + "O", 1, 2, true, molecules[7], "NO");
-        results[Tuple.Create(c, o2)] = new Chemical("CO", 1, 1, true, molecules[7], "CO");
-        results[Tuple.Create(o2, c)] = new Chemical("CO", 1, 1, true, molecules[7], "CO");
+        results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, molecules[7], "FeO");
+        results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, molecules[7], "FeO");
+        results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, molecules[7], "FeCl");
+        results[Tuple.Create(cl2, fe)] = new Chemical("FeCl"+sub_3, 3, 1, true, molecules[7], "FeCl");
 
         // Add chemicals to list.
 
-        chemicals.Add(c);
+        chemicals.Add(cl2);
         chemicals.Add(o2);
-        chemicals.Add(n2);
+        chemicals.Add(fe);
 
         // Load orders for the level.
 
-        orders.Add("CO");
-        orders.Add("N" + sub_2 + "O");
-        orders.Add("CO");
+        orders.Add("FeCl" + sub_3);
+        orders.Add("Fe" + sub_2 + "O" + sub_3);
+        orders.Add("FeCl" + sub_3);
+        orders.Add("Fe" + sub_2 + "O" + sub_3);
+
 
         // Fix subscripts.
 
-        fix1.text = "C";
+        fix1.text = "Cl" + sub_2;
         fix2.text = "O" + sub_2;
-        fix3.text = "N" + sub_2;
 
-        InHand = n2;
+        InHand = fe;
 
         // Load customers for the level and have new ones appear as player completes orders.
 
@@ -389,7 +390,7 @@ public class Level3 : MonoBehaviour
             if (order == InHand.Name) {
                 customer1.SetActive(false);
                 ordersCompleted++;
-                ordersDone.text = ordersCompleted.ToString() + "/3";
+                ordersDone.text = ordersCompleted.ToString() + "/4";
             customer1Text.text = "";
 
                 Hand.SetActive(false);
@@ -443,7 +444,7 @@ public class Level3 : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene("Level4");
+        SceneManager.LoadScene("MainScreen");
     }
 
     public bool CheckBalance()

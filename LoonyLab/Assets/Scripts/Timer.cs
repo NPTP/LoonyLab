@@ -29,7 +29,10 @@ public class Timer : MonoBehaviour
             int mins = timeRounded / 60;
             int secs = timeRounded % 60;
 
-            timeDisplay.text = mins.ToString() + ":" + secs.ToString();
+            if (secs > 9)
+                timeDisplay.text = mins.ToString() + ":" + secs.ToString();
+            else
+                timeDisplay.text = mins.ToString() + ":0" + secs.ToString();
         }
         else
         {
