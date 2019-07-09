@@ -89,7 +89,7 @@ public class Level4 : MonoBehaviour
 
         Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, molecules[6], "Cl");
         Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[4], "O");
-        Chemical fe = new Chemical("Fe" + sub_2, 1, 0, false, molecules[5], "F");
+        Chemical fe = new Chemical("Fe", 1, 0, false, molecules[5], "F");
 
         // Load possible reactions into dictionary.
 
