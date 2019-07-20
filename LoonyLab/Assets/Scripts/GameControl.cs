@@ -12,9 +12,9 @@ public class Chemical
     public int Subscript1;
     public int Subscript2;
     public bool Product;
-    public Sprite Colour;
+    public List<Sprite> Colour;
 
-    public Chemical(string name, int sub1, int sub2, bool product, Sprite colour, string singleName)
+    public Chemical(string name, int sub1, int sub2, bool product, List<Sprite> colour, string singleName)
     {
         Name = name;
         Subscript1 = sub1;

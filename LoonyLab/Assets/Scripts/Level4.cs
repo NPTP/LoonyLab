@@ -32,30 +32,18 @@ public class Level4 : MonoBehaviour
     public GameObject CustomerHover;
     public GameObject TrashHover;
 
-    public List<GameObject> sec1_row0;
-    public List<GameObject> sec1_row1;
-    public List<GameObject> sec1_row2;
-    public List<GameObject> sec1_row3;
+    public List<GameObject> sec1;
 
-    public List<GameObject> sec2_row0;
-    public List<GameObject> sec2_row1;
-    public List<GameObject> sec2_row2;
-    public List<GameObject> sec2_row3;
+    public List<GameObject> sec2;
 
-    public List<GameObject> sec3_row0;
-    public List<GameObject> sec3_row1;
-    public List<GameObject> sec3_row2;
-    public List<GameObject> sec3_row3;
+    public List<GameObject> sec3;
 
-    public List<GameObject> sec4_row0;
-    public List<GameObject> sec4_row1;
-    public List<GameObject> sec4_row2;
-    public List<GameObject> sec4_row3;
+    public Sprite cl2_sprite;
+    public Sprite o2_sprite;
+    public Sprite fe_sprite;
 
-    private List<List<GameObject>> section1 = new List<List<GameObject>>();
-    private List<List<GameObject>> section2 = new List<List<GameObject>>();
-    private List<List<GameObject>> section3 = new List<List<GameObject>>();
-    private List<List<GameObject>> section4 = new List<List<GameObject>>();
+    public List<Sprite> fe2o3_sprites;
+    public List<Sprite> fecl3_sprites;
 
 
     public Text fix1;
@@ -87,16 +75,16 @@ public class Level4 : MonoBehaviour
     {
         // Create chemicals used in the level.
 
-        Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, molecules[6], "Cl");
-        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, molecules[4], "O");
-        Chemical fe = new Chemical("Fe", 1, 0, false, molecules[5], "F");
+        Chemical cl2 = new Chemical("Cl" + sub_2, 2, 0, false, new List<Sprite> { cl2_sprite }, "Cl");
+        Chemical o2 = new Chemical("O" + sub_2, 2, 0, false, new List<Sprite> { o2_sprite }, "O");
+        Chemical fe = new Chemical("Fe", 1, 0, false, new List<Sprite> { fe_sprite }, "F");
 
         // Load possible reactions into dictionary.
 
-        results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, molecules[7], "FeO");
-        results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, molecules[7], "FeO");
-        results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, molecules[7], "FeCl");
-        results[Tuple.Create(cl2, fe)] = new Chemical("FeCl"+sub_3, 3, 1, true, molecules[7], "FeCl");
+        results[Tuple.Create(fe, o2)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 2, 3, true, fe2o3_sprites, "FeO");
+        results[Tuple.Create(o2, fe)] = new Chemical("Fe" + sub_2 + "O" + sub_3, 3, 2, true, fe2o3_sprites, "FeO");
+        results[Tuple.Create(fe, cl2)] = new Chemical("FeCl" + sub_3, 1, 3, true, fecl3_sprites, "FeCl");
+        results[Tuple.Create(cl2, fe)] = new Chemical("FeCl"+sub_3, 3, 1, true, fecl3_sprites, "FeCl");
 
         // Add chemicals to list.
 
@@ -123,26 +111,6 @@ public class Level4 : MonoBehaviour
 
         GenerateCustomers();
         InvokeRepeating("GenerateCustomers", 2.0f, 2.0f);
-
-        section1.Add(sec1_row0);
-        section1.Add(sec1_row1);
-        section1.Add(sec1_row2);
-        section1.Add(sec1_row3);
-
-        section2.Add(sec2_row0);
-        section2.Add(sec2_row1);
-        section2.Add(sec2_row2);
-        section2.Add(sec2_row3);
-
-        section3.Add(sec3_row0);
-        section3.Add(sec3_row1);
-        section3.Add(sec3_row2);
-        section3.Add(sec3_row3);
-
-        section4.Add(sec4_row0);
-        section4.Add(sec4_row1);
-        section4.Add(sec4_row2);
-        section4.Add(sec4_row3);
 
 
     }
@@ -251,7 +219,7 @@ public class Level4 : MonoBehaviour
                 Hand.SetActive(true);
                 SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
                 InHand = chem;
-                sr.sprite = InHand.Colour;
+                sr.sprite = InHand.Colour[0];
             }
         
     }
@@ -367,7 +335,7 @@ public class Level4 : MonoBehaviour
             InHand = balanceStn.Product;
 
             SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
-            sr.sprite = InHand.Colour;
+            sr.sprite = molecules[7];
             FindObjectOfType<AudioManager>().Play("successBalance");
             deliveryLightsOn = true;
         }
@@ -531,12 +499,10 @@ public class Level4 : MonoBehaviour
         {
             for (int i = 0; i < balanceStn.QuantityR1; i++)
             {
-                for (int j = 0; j < balanceStn.Reactant1.Subscript1; j++)
-                {
-                    section1[i][j].SetActive(true);
-                    Image sr = section1[i][j].GetComponent<Image>();
-                    sr.sprite = balanceStn.Reactant1.Colour;
-                }
+                sec1[i].SetActive(true);
+                Image sr = sec1[i].GetComponent<Image>();
+                sr.sprite = balanceStn.Reactant1.Colour[0];
+
             }
         }
 
@@ -544,54 +510,24 @@ public class Level4 : MonoBehaviour
         {
             for (int i = 0; i < balanceStn.QuantityR2; i++)
             {
-                for (int j = 0; j < balanceStn.Reactant2.Subscript1; j++)
-                {
-                    section2[i][j].SetActive(true);
-                    Image sr = section2[i][j].GetComponent<Image>();
-                    sr.sprite = balanceStn.Reactant2.Colour;
-                }
+                sec2[i].SetActive(true);
+                Image sr = sec2[i].GetComponent<Image>();
+                sr.sprite = balanceStn.Reactant2.Colour[0];
+
             }
         }
 
+
+
         if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
         {
-            int total_used = 0;
             int total_available = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
 
             int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
             int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
             int goal = Math.Max(num1, num2);
 
-            for (int i = 0; i < goal; i++)
-            {
-                for (int j = 2; j >= 3 - balanceStn.Product.Subscript1; j--)
-                {
-                    if (total_used < total_available)
-                    {
-                        section3[i][j].SetActive(true);
-                        Image sr = section3[i][j].GetComponent<Image>();
-                        sr.sprite = balanceStn.Reactant1.Colour;
-                        total_used++;
-                    }
-                }
-            }
-
-            total_used = 0;
-            total_available = balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1;
-
-            for (int i = 0; i < goal; i++)
-            {
-                for (int j = 0; j < balanceStn.Product.Subscript2; j++)
-                {
-                    if (total_used < total_available)
-                    {
-                        section4[i][j].SetActive(true);
-                        Image sr = section4[i][j].GetComponent<Image>();
-                        sr.sprite = balanceStn.Reactant2.Colour;
-                        total_used++;
-                    }
-                }
-            }
+            // display products here still not sure how
 
 
 
@@ -603,13 +539,9 @@ public class Level4 : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 3; j++)
-            {
-                section1[i][j].SetActive(false);
-                section2[i][j].SetActive(false);
-                section3[i][j].SetActive(false);
-                section4[i][j].SetActive(false);
-            }
+            sec1[i].SetActive(false);
+            sec2[i].SetActive(false);
+            sec3[i].SetActive(false);
         }
     }
 
