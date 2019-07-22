@@ -9901,7 +9901,7 @@ GameObject:
   - component: {fileID: 1912093817}
   - component: {fileID: 1912093818}
   m_Layer: 0
-  m_Name: BlueCabinetTop
+  m_Name: CCabinetTop(blue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
