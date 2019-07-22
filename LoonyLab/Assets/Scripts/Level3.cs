@@ -323,14 +323,14 @@ public class Level3 : MonoBehaviour
         int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
         int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
         int goal = Math.Max(num1, num2);
-        result.text = goal.ToString() + " " + balanceStn.Product.Name;
+        result.text = "_ " + balanceStn.Product.Name;
         int missing1 = balanceStn.Product.Subscript1 * goal - balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
         int missing2 = balanceStn.Product.Subscript2 * goal - balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1;
 
         if (missing1 == 0 && missing2 == 0)
         {
             // Balanced 
-
+            result.text = goal.ToString() + " " + balanceStn.Product.Name;
             resultTotal.text = "Balanced! You have finished the reaction for creating " + balanceStn.Product.Name + "!";
             Hand.SetActive(true);
             InHand = balanceStn.Product;
