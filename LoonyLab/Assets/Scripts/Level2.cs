@@ -39,8 +39,10 @@ public class Level2 : MonoBehaviour
     public List<GameObject> sec3;
 
     public List<Sprite> nh3_sprites;
+    public List<Sprite> nh3_backwards_sprites;
 
     public List<Sprite> h20_sprites;
+    public List<Sprite> h20_backwards_sprites;
 
     public Sprite n2_sprite;
     public Sprite o2_sprite;
@@ -84,9 +86,9 @@ public class Level2 : MonoBehaviour
         // Load possible reactions into dictionary.
 
         results[Tuple.Create(n2, h2)] = new Chemical("NH" + sub_3, 1, 3, true, nh3_sprites, "NH");
-        results[Tuple.Create(h2, n2)] = new Chemical("NH" + sub_3, 3, 1, true, nh3_sprites, "NH");
+        results[Tuple.Create(h2, n2)] = new Chemical("NH" + sub_3, 3, 1, true, nh3_backwards_sprites, "NH");
         results[Tuple.Create(h2, o2)] = new Chemical("H" + sub_2 + "O", 2, 1, true, h20_sprites, "HO");
-        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, h20_sprites, "HO");
+        results[Tuple.Create(o2, h2)] = new Chemical("H" + sub_2 + "O", 1, 2, true, h20_backwards_sprites, "HO");
 
         // Add chemicals to list.
 
@@ -522,21 +524,46 @@ public class Level2 : MonoBehaviour
 
         if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
         {
-            int num1 = (int)Math.Floor(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
-            int num2 = (int)Math.Floor(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
-            int total_complete = Math.Min(num1, num2);
+            int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int total_needed = Math.Max(num1, num2);
 
-            for (int i = 0; i < total_complete; i++)
+            int remaining_r1 = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
+            int remaining_r2 = balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1;
+
+            for (int i = 0; i < total_needed; i++)
             {
                 sec3[i].SetActive(true);
                 Image sr2 = sec3[i].GetComponent<Image>();
-                sr2.sprite = balanceStn.Product.Colour[-1];
+                if (remaining_r1 >= balanceStn.Product.Subscript1 && remaining_r2 >= balanceStn.Product.Subscript2)
+                {
+                    sr2.sprite = balanceStn.Product.Colour[balanceStn.Product.Colour.Count - 1];
+                    remaining_r1 -= balanceStn.Product.Subscript1;
+                    remaining_r2 -= balanceStn.Product.Subscript2;
+                }
+                else if(remaining_r1 >= balanceStn.Product.Subscript1)
+                {
+                    int partial_sprite = (balanceStn.Product.Subscript2 + 1) * balanceStn.Product.Subscript1 + remaining_r2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                    remaining_r1 -= balanceStn.Product.Subscript1;
+                    remaining_r2 = 0;
+                }
+                else if (remaining_r2 >= balanceStn.Product.Subscript2)
+                {
+                    int partial_sprite = remaining_r1 * (balanceStn.Product.Subscript2 + 1) + balanceStn.Product.Subscript2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                    remaining_r2 -= balanceStn.Product.Subscript2;
+                    remaining_r1 = 0;
+                }
+                else
+                {
+                    int partial_sprite = remaining_r1 * (balanceStn.Product.Subscript2 + 1) + remaining_r2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                }
+                
             }
 
-            int partial_sprite = (total_complete * balanceStn.Reactant2.Subscript1)-1 + (balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 - total_complete * balanceStn.Product.Subscript2);
-            sec3[total_complete].SetActive(true);
-            Image sr = sec3[total_complete].GetComponent<Image>();
-            sr.sprite = balanceStn.Product.Colour[partial_sprite];
+            
 
         }
 
