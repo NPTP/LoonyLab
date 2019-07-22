@@ -1925,17 +1925,68 @@ MonoBehaviour:
   BalanceHover: {fileID: 342625512}
   CustomerHover: {fileID: 87924458}
   TrashHover: {fileID: 1864488904}
-  sec1: []
-  sec2: []
-  sec3: []
+  sec1:
+  - {fileID: 774133917}
+  - {fileID: 767173014}
+  - {fileID: 726844570}
+  - {fileID: 917947032}
+  sec2:
+  - {fileID: 750098110}
+  - {fileID: 525818070}
+  - {fileID: 551305391}
+  - {fileID: 169841813}
+  sec3:
+  - {fileID: 691856811}
+  - {fileID: 24695808}
+  - {fileID: 757144743}
+  - {fileID: 14330938}
   cl2_sprite: {fileID: 21300000, guid: e3de735c105bed84cbfa1cb09564ca9c, type: 3}
   o2_sprite: {fileID: 21300000, guid: 0e8e89bd45b1d80408fdf6548a6fd70b, type: 3}
   fe_sprite: {fileID: 21300000, guid: 4e07ac5dfc5411c4a83abe207154252c, type: 3}
   fe2o3_sprites:
   - {fileID: 21300000, guid: c60a186c6823b944f8067123099fbb1d, type: 3}
-  fecl3_sprites: []
-  fe2o3_backwards_sprites: []
-  fecl3_backwards_sprites: []
+  - {fileID: 21300000, guid: 4aef1a8de92b34db8b06157e54f5ce80, type: 3}
+  - {fileID: 21300000, guid: 5c43460c3e20d4e0f9d18e84d9a8b944, type: 3}
+  - {fileID: 21300000, guid: 34df0d74339ad438db5f8d95021bbe6a, type: 3}
+  - {fileID: 21300000, guid: 0d838a8e39acb594eb3153c3030ea2c9, type: 3}
+  - {fileID: 21300000, guid: 4a508360eecde29478ce5d2ba2476801, type: 3}
+  - {fileID: 21300000, guid: dbb069a6225798a46940278c8d9a4dcf, type: 3}
+  - {fileID: 21300000, guid: 9ffe30deb64804a4e8175e6643115065, type: 3}
+  - {fileID: 21300000, guid: d20db5dedcd79af47bf840f63446d0d9, type: 3}
+  - {fileID: 21300000, guid: 4ec63a78fcb6c22488f5c7dbb572c347, type: 3}
+  - {fileID: 21300000, guid: b3c999213da50b4489e55166b1e474af, type: 3}
+  - {fileID: 21300000, guid: b68cd098f8a6fc14197eda85f422f7b5, type: 3}
+  fecl3_sprites:
+  - {fileID: 21300000, guid: 6fd2a855ef7f9bf41b47c615c11a025f, type: 3}
+  - {fileID: 21300000, guid: 4a16626e0e68e3c4b9442ea7ddabb327, type: 3}
+  - {fileID: 21300000, guid: ef441536b89a76f4bb8764c6bd40ded4, type: 3}
+  - {fileID: 21300000, guid: f38a254ac9637be4ba8d97b9f169f044, type: 3}
+  - {fileID: 21300000, guid: d56ac26a22b2558489c42506d8631393, type: 3}
+  - {fileID: 21300000, guid: bf794ddda40abba45a9690406fc0f874, type: 3}
+  - {fileID: 21300000, guid: f6f6a8d6d300225459e5ce701687ea31, type: 3}
+  - {fileID: 21300000, guid: 5b46b1185e4416a41a62e4e73a389a4c, type: 3}
+  fe2o3_backwards_sprites:
+  - {fileID: 21300000, guid: c60a186c6823b944f8067123099fbb1d, type: 3}
+  - {fileID: 21300000, guid: 0d838a8e39acb594eb3153c3030ea2c9, type: 3}
+  - {fileID: 21300000, guid: d20db5dedcd79af47bf840f63446d0d9, type: 3}
+  - {fileID: 21300000, guid: 4aef1a8de92b34db8b06157e54f5ce80, type: 3}
+  - {fileID: 21300000, guid: 4a508360eecde29478ce5d2ba2476801, type: 3}
+  - {fileID: 21300000, guid: 4ec63a78fcb6c22488f5c7dbb572c347, type: 3}
+  - {fileID: 21300000, guid: 5c43460c3e20d4e0f9d18e84d9a8b944, type: 3}
+  - {fileID: 21300000, guid: dbb069a6225798a46940278c8d9a4dcf, type: 3}
+  - {fileID: 21300000, guid: b3c999213da50b4489e55166b1e474af, type: 3}
+  - {fileID: 21300000, guid: 34df0d74339ad438db5f8d95021bbe6a, type: 3}
+  - {fileID: 21300000, guid: 9ffe30deb64804a4e8175e6643115065, type: 3}
+  - {fileID: 21300000, guid: b68cd098f8a6fc14197eda85f422f7b5, type: 3}
+  fecl3_backwards_sprites:
+  - {fileID: 21300000, guid: 6fd2a855ef7f9bf41b47c615c11a025f, type: 3}
+  - {fileID: 21300000, guid: d56ac26a22b2558489c42506d8631393, type: 3}
+  - {fileID: 21300000, guid: 4a16626e0e68e3c4b9442ea7ddabb327, type: 3}
+  - {fileID: 21300000, guid: bf794ddda40abba45a9690406fc0f874, type: 3}
+  - {fileID: 21300000, guid: ef441536b89a76f4bb8764c6bd40ded4, type: 3}
+  - {fileID: 21300000, guid: f6f6a8d6d300225459e5ce701687ea31, type: 3}
+  - {fileID: 21300000, guid: f38a254ac9637be4ba8d97b9f169f044, type: 3}
+  - {fileID: 21300000, guid: 5b46b1185e4416a41a62e4e73a389a4c, type: 3}
   fix1: {fileID: 228319034}
   fix2: {fileID: 1344518184}
   fix3: {fileID: 575443393}
@@ -2471,7 +2522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &617262184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5027,7 +5078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1393751923
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5637,7 +5688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1737184097
 RectTransform:
   m_ObjectHideFlags: 0
