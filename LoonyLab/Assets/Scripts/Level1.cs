@@ -28,7 +28,9 @@ public class Level1 : MonoBehaviour
     public Sprite h2_sprite;
 
     public List<Sprite> co2_sprites;
+    public List<Sprite> co2_backwards_sprites;
     public List<Sprite> h20_sprites;
+    public List<Sprite> h20_backwards_sprites;
 
 
     public Text chem1; //Text used in balancing screen.
@@ -557,13 +559,44 @@ public class Level1 : MonoBehaviour
 
         if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
         {
-            int total_available = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
-
             int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
             int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
-            int goal = Math.Max(num1, num2);
+            int total_needed = Math.Max(num1, num2);
 
-            // display products here still not sure how
+            int remaining_r1 = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
+            int remaining_r2 = balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1;
+
+            for (int i = 0; i < total_needed; i++)
+            {
+                sec3[i].SetActive(true);
+                Image sr2 = sec3[i].GetComponent<Image>();
+                if (remaining_r1 >= balanceStn.Product.Subscript1 && remaining_r2 >= balanceStn.Product.Subscript2)
+                {
+                    sr2.sprite = balanceStn.Product.Colour[balanceStn.Product.Colour.Count - 1];
+                    remaining_r1 -= balanceStn.Product.Subscript1;
+                    remaining_r2 -= balanceStn.Product.Subscript2;
+                }
+                else if (remaining_r1 >= balanceStn.Product.Subscript1)
+                {
+                    int partial_sprite = (balanceStn.Product.Subscript2 + 1) * balanceStn.Product.Subscript1 + remaining_r2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                    remaining_r1 -= balanceStn.Product.Subscript1;
+                    remaining_r2 = 0;
+                }
+                else if (remaining_r2 >= balanceStn.Product.Subscript2)
+                {
+                    int partial_sprite = remaining_r1 * (balanceStn.Product.Subscript2 + 1) + balanceStn.Product.Subscript2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                    remaining_r2 -= balanceStn.Product.Subscript2;
+                    remaining_r1 = 0;
+                }
+                else
+                {
+                    int partial_sprite = remaining_r1 * (balanceStn.Product.Subscript2 + 1) + remaining_r2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                }
+
+            }
 
 
 

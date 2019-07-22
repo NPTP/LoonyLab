@@ -44,6 +44,8 @@ public class Level3 : MonoBehaviour
 
     public List<Sprite> n20_sprites;
     public List<Sprite> co_sprites;
+    public List<Sprite> n20_backwards_sprites;
+    public List<Sprite> co_backwards_sprites;
 
 
     public Text fix1;
@@ -82,9 +84,9 @@ public class Level3 : MonoBehaviour
         // Load possible reactions into dictionary.
 
         results[Tuple.Create(n2, o2)] = new Chemical("N" + sub_2 + "O", 2, 1, true, n20_sprites, "NO");
-        results[Tuple.Create(o2, n2)] = new Chemical("N" + sub_2 + "O", 1, 2, true, n20_sprites, "NO");
+        results[Tuple.Create(o2, n2)] = new Chemical("N" + sub_2 + "O", 1, 2, true, n20_backwards_sprites, "NO");
         results[Tuple.Create(c, o2)] = new Chemical("CO", 1, 1, true, co_sprites, "CO");
-        results[Tuple.Create(o2, c)] = new Chemical("CO", 1, 1, true, co_sprites, "CO");
+        results[Tuple.Create(o2, c)] = new Chemical("CO", 1, 1, true, co_backwards_sprites, "CO");
 
         // Add chemicals to list.
 
@@ -520,13 +522,44 @@ public class Level3 : MonoBehaviour
 
         if (results.ContainsKey(Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)))
         {
-            int total_available = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
-
             int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
             int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
-            int goal = Math.Max(num1, num2);
+            int total_needed = Math.Max(num1, num2);
 
-            // display products here still not sure how
+            int remaining_r1 = balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1;
+            int remaining_r2 = balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1;
+
+            for (int i = 0; i < total_needed; i++)
+            {
+                sec3[i].SetActive(true);
+                Image sr2 = sec3[i].GetComponent<Image>();
+                if (remaining_r1 >= balanceStn.Product.Subscript1 && remaining_r2 >= balanceStn.Product.Subscript2)
+                {
+                    sr2.sprite = balanceStn.Product.Colour[balanceStn.Product.Colour.Count - 1];
+                    remaining_r1 -= balanceStn.Product.Subscript1;
+                    remaining_r2 -= balanceStn.Product.Subscript2;
+                }
+                else if (remaining_r1 >= balanceStn.Product.Subscript1)
+                {
+                    int partial_sprite = (balanceStn.Product.Subscript2 + 1) * balanceStn.Product.Subscript1 + remaining_r2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                    remaining_r1 -= balanceStn.Product.Subscript1;
+                    remaining_r2 = 0;
+                }
+                else if (remaining_r2 >= balanceStn.Product.Subscript2)
+                {
+                    int partial_sprite = remaining_r1 * (balanceStn.Product.Subscript2 + 1) + balanceStn.Product.Subscript2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                    remaining_r2 -= balanceStn.Product.Subscript2;
+                    remaining_r1 = 0;
+                }
+                else
+                {
+                    int partial_sprite = remaining_r1 * (balanceStn.Product.Subscript2 + 1) + remaining_r2;
+                    sr2.sprite = balanceStn.Product.Colour[partial_sprite];
+                }
+
+            }
 
 
 
