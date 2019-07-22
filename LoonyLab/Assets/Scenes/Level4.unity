@@ -2404,70 +2404,14 @@ MonoBehaviour:
   BalanceHover: {fileID: 342625512}
   CustomerHover: {fileID: 87924458}
   TrashHover: {fileID: 1864488904}
-  sec1_row0:
-  - {fileID: 331995187}
-  - {fileID: 1465451953}
-  - {fileID: 148578028}
-  sec1_row1:
-  - {fileID: 1949748876}
-  - {fileID: 198269725}
-  - {fileID: 2025092091}
-  sec1_row2:
-  - {fileID: 1359241974}
-  - {fileID: 42984514}
-  - {fileID: 906843778}
-  sec1_row3:
-  - {fileID: 809153233}
-  - {fileID: 619615184}
-  - {fileID: 187089755}
-  sec2_row0:
-  - {fileID: 1544609802}
-  - {fileID: 1954421524}
-  - {fileID: 1069067544}
-  sec2_row1:
-  - {fileID: 760830747}
-  - {fileID: 1021289581}
-  - {fileID: 1585325503}
-  sec2_row2:
-  - {fileID: 1781739924}
-  - {fileID: 121607465}
-  - {fileID: 1105380983}
-  sec2_row3:
-  - {fileID: 1924168500}
-  - {fileID: 1092954035}
-  - {fileID: 1467658777}
-  sec3_row0:
-  - {fileID: 1060880407}
-  - {fileID: 1499005314}
-  - {fileID: 11522461}
-  sec3_row1:
-  - {fileID: 382033534}
-  - {fileID: 932995048}
-  - {fileID: 1757928449}
-  sec3_row2:
-  - {fileID: 1346087606}
-  - {fileID: 1758033225}
-  - {fileID: 998574054}
-  sec3_row3:
-  - {fileID: 901417483}
-  - {fileID: 692853108}
-  - {fileID: 338649339}
-  sec4_row0:
-  - {fileID: 2043572886}
-  - {fileID: 867462823}
-  - {fileID: 30930748}
-  sec4_row1:
-  - {fileID: 1821535737}
-  - {fileID: 1940106557}
-  - {fileID: 2068041600}
-  sec4_row2:
-  - {fileID: 1991220003}
-  - {fileID: 1898473467}
-  - {fileID: 375939286}
-  sec4_row3:
-  - {fileID: 854656932}
-  - {fileID: 1987675788}
-  - {fileID: 678908770}
+  sec1: []
+  sec2: []
+  sec3: []
+  cl2_sprite: {fileID: 0}
+  o2_sprite: {fileID: 0}
+  fe_sprite: {fileID: 0}
+  fe2o3_sprites: []
+  fecl3_sprites: []
   fix1: {fileID: 228319034}
   fix2: {fileID: 1344518184}
   fix3: {fileID: 575443393}
@@ -4930,7 +4874,7 @@ GameObject:
   - component: {fileID: 1075318358}
   - component: {fileID: 1075318357}
   m_Layer: 0
-  m_Name: RedCabinetTop
+  m_Name: CyanCabinetTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

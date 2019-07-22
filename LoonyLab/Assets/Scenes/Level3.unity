@@ -2404,70 +2404,14 @@ MonoBehaviour:
   BalanceHover: {fileID: 342625512}
   CustomerHover: {fileID: 87924458}
   TrashHover: {fileID: 1864488904}
-  sec1_row0:
-  - {fileID: 331995187}
-  - {fileID: 1465451953}
-  - {fileID: 148578028}
-  sec1_row1:
-  - {fileID: 1949748876}
-  - {fileID: 198269725}
-  - {fileID: 2025092091}
-  sec1_row2:
-  - {fileID: 1359241974}
-  - {fileID: 42984514}
-  - {fileID: 906843778}
-  sec1_row3:
-  - {fileID: 809153233}
-  - {fileID: 619615184}
-  - {fileID: 187089755}
-  sec2_row0:
-  - {fileID: 1544609802}
-  - {fileID: 1954421524}
-  - {fileID: 1069067544}
-  sec2_row1:
-  - {fileID: 760830747}
-  - {fileID: 1021289581}
-  - {fileID: 1585325503}
-  sec2_row2:
-  - {fileID: 1781739924}
-  - {fileID: 121607465}
-  - {fileID: 1105380983}
-  sec2_row3:
-  - {fileID: 1924168500}
-  - {fileID: 1092954035}
-  - {fileID: 1467658777}
-  sec3_row0:
-  - {fileID: 1060880407}
-  - {fileID: 1499005314}
-  - {fileID: 11522461}
-  sec3_row1:
-  - {fileID: 382033534}
-  - {fileID: 932995048}
-  - {fileID: 1757928449}
-  sec3_row2:
-  - {fileID: 1346087606}
-  - {fileID: 1758033225}
-  - {fileID: 998574054}
-  sec3_row3:
-  - {fileID: 901417483}
-  - {fileID: 692853108}
-  - {fileID: 338649339}
-  sec4_row0:
-  - {fileID: 2043572886}
-  - {fileID: 867462823}
-  - {fileID: 30930748}
-  sec4_row1:
-  - {fileID: 1821535737}
-  - {fileID: 1940106557}
-  - {fileID: 2068041600}
-  sec4_row2:
-  - {fileID: 1991220003}
-  - {fileID: 1898473467}
-  - {fileID: 375939286}
-  sec4_row3:
-  - {fileID: 854656932}
-  - {fileID: 1987675788}
-  - {fileID: 678908770}
+  sec1: []
+  sec2: []
+  sec3: []
+  c_sprite: {fileID: 0}
+  n2_sprite: {fileID: 0}
+  o2_sprite: {fileID: 0}
+  n20_sprites: []
+  co_sprites: []
   fix1: {fileID: 228319034}
   fix2: {fileID: 1344518184}
   fix3: {fileID: 575443393}
@@ -4930,7 +4874,7 @@ GameObject:
   - component: {fileID: 1075318358}
   - component: {fileID: 1075318357}
   m_Layer: 0
-  m_Name: RedCabinetTop
+  m_Name: CyanCabinetTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5005,7 +4949,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8fa2bfabd96d9b94e95698ebeaed72b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13cbe751d41304241b0a05d8bb2e77b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10115,9 +10059,9 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 95c72be08b0df42b99d5654d0d0756cc, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: a8d67940217fd1d409eeb6022fddb369, type: 2}
+    m_Data: {fileID: 11400000, guid: 97eaf3d8d915a1849be2a52ff960f582, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 638de5ea428b0ae4783820bb93dc914c, type: 2}
+    m_Data: {fileID: 11400000, guid: 6b518c5166ed78e4b9a411c9b854ace3, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 52
     m_Data: {fileID: 21300000, guid: 67e45f22ac1314531b0e1901489e0967, type: 3}
@@ -10180,9 +10124,9 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: e38c1328537e0411290f5610b7ad7bd5, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 8fa2bfabd96d9b94e95698ebeaed72b4, type: 3}
+    m_Data: {fileID: 21300000, guid: 13cbe751d41304241b0a05d8bb2e77b3, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 4fcd6e86411d6bc418bcaf5756d6a2fa, type: 3}
+    m_Data: {fileID: 21300000, guid: 853c661479df59549b131f3334e41039, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 144
     m_Data:
