@@ -443,14 +443,14 @@ public class Level4 : MonoBehaviour
         return false;
     }
 
-    public bool CheckFe()
+    public bool CheckFe() // Actually Cl2 on top
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
         if (player_y > 0.82)
         {
-            if (player_x > 2.1 && player_x < 2.9)
+            if (player_x > 0 && player_x < 1)
                 return true;
         }
         return false;
@@ -469,14 +469,14 @@ public class Level4 : MonoBehaviour
         return false;
     }
 
-    public bool CheckO2()
+    public bool CheckO2() // Actually Fe on bottom
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
         if (player_y < -1.2)
         {
-            if (player_x > -1.91 && player_x < -0.89)
+            if (player_x > 0 && player_x < 1)
                 return true;
         }
         return false;

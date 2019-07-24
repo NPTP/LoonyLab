@@ -445,20 +445,20 @@ public class Level2 : MonoBehaviour
         return false;
     }
 
-    public bool CheckFe()
+    public bool CheckFe() // Actually N2 on top left
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
 
         if (player_y > 0.82)
         {
-            if (player_x > 2.1 && player_x < 2.9)
+            if (player_x > -2.9 && player_x < -1.9)
                 return true;
         }
         return false;
     }
 
-    public bool CheckCl2()
+    public bool CheckCl2() // Actually O2 on bottom right
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
@@ -471,7 +471,7 @@ public class Level2 : MonoBehaviour
         return false;
     }
 
-    public bool CheckO2()
+    public bool CheckO2() // Actually H2 on bottom left
     {
         float player_x = player.transform.position.x;
         float player_y = player.transform.position.y;
