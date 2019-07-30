@@ -32,6 +32,9 @@ public class Level4 : MonoBehaviour
     public GameObject CustomerHover;
     public GameObject TrashHover;
 
+    public Image compoundImage;
+    private List<Sprite> ordersImages = new List<Sprite>();
+
     public List<GameObject> sec1;
 
     public List<GameObject> sec2;
@@ -100,6 +103,12 @@ public class Level4 : MonoBehaviour
         orders.Add("Fe" + sub_2 + "O" + sub_3);
         orders.Add("FeCl" + sub_3);
         orders.Add("Fe" + sub_2 + "O" + sub_3);
+
+        ordersImages.Add(fecl3_sprites[fecl3_sprites.Count - 1]);
+        ordersImages.Add(fe2o3_sprites[fe2o3_sprites.Count - 1]);
+        ordersImages.Add(fecl3_sprites[fecl3_sprites.Count - 1]);
+        ordersImages.Add(fe2o3_sprites[fe2o3_sprites.Count - 1]);
+
 
 
         // Fix subscripts.
@@ -202,7 +211,9 @@ public class Level4 : MonoBehaviour
             {
                 customer1.SetActive(true);
                 customer1Text.text = orders[0]; // Load next order in line. 
-                orders.RemoveAt(0); // Remove loaded order from list. 
+                orders.RemoveAt(0); // Remove loaded order from list.
+                compoundImage.sprite = ordersImages[0];
+                ordersImages.RemoveAt(0);
             }
         }
     }
@@ -344,10 +355,9 @@ public class Level4 : MonoBehaviour
         else
         {
             // Not balanced
-            string text1 = "Needed: " + (balanceStn.Product.Subscript1 * goal).ToString() + " " + balanceStn.Reactant1.SingleName;
-            string text2 = " " + (balanceStn.Product.Subscript2 * goal).ToString() + " " + balanceStn.Reactant2.SingleName;
+            
 
-            resultTotal.text = text1 + text2 + " Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
+            resultTotal.text = " Missing: " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
         }
     }
 

@@ -43,6 +43,7 @@ public class Level1 : MonoBehaviour
     public Text tutorialText;
     public Text balanceHoverText;
     public Text ordersDone;
+    public Image compoundImage;
 
     public GameObject CHover;
     public GameObject O2Hover;
@@ -72,7 +73,8 @@ public class Level1 : MonoBehaviour
 
 
     private List<Chemical> chemicals = new List<Chemical>(); // List of chemicals player can pick up. 
-    private List<string> orders = new List<string>(); // List of orders customers will make throughout level. 
+    private List<string> orders = new List<string>(); // List of orders customers will make throughout level.
+    private List<Sprite> ordersImages = new List<Sprite>();
 
     private Dictionary<Tuple<Chemical, Chemical>, Chemical> results = new Dictionary<Tuple<Chemical, Chemical>, Chemical>(); // Dictionary of possible reactions player can complete.
 
@@ -105,6 +107,10 @@ public class Level1 : MonoBehaviour
         orders.Add("CO" + sub_2);
         orders.Add("H" + sub_2 + "O");
         orders.Add("CO" + sub_2);
+
+        ordersImages.Add(co2_sprites[co2_sprites.Count - 1]);
+        ordersImages.Add(h20_sprites[h20_sprites.Count - 1]);
+        ordersImages.Add(co2_sprites[co2_sprites.Count - 1]);
 
         // Fix subscripts.
 
@@ -186,7 +192,7 @@ public class Level1 : MonoBehaviour
             O2Hover.SetActive(false);
 
         if (CheckCustomer() && Hand.activeSelf)
-        { 
+        {
             if (InHand.Product)
                 CustomerHover.SetActive(true);
         }
@@ -211,7 +217,9 @@ public class Level1 : MonoBehaviour
             if (!customer1.activeSelf) // Check if customer 1 space is available.
             {
                 customer1.SetActive(true);
-                customer1Text.text = orders[0]; // Load next order in line. 
+                customer1Text.text = orders[0]; // Load next order in line.
+                compoundImage.sprite = ordersImages[0];
+                ordersImages.RemoveAt(0);
                 orders.RemoveAt(0); // Remove loaded order from list. 
             }
         }
@@ -223,34 +231,34 @@ public class Level1 : MonoBehaviour
         // Allow player to pick up selected chemical if player is not already holding something. 
 
         Chemical chem = chemicals[chemNum];
-            if ((!Hand.activeSelf && !tutorial.activeSelf) || (chemNum == 2 && num == 2))
-            {
-                chemNumPublic = chemNum;
-                chemClickEvent = true;
-                FindObjectOfType<AudioManager>().Play("cabinetUse");
-                Hand.SetActive(true);
-                SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
-                InHand = chem;
-                sr.sprite = InHand.Colour[0];
-            }
-        
+        if ((!Hand.activeSelf && !tutorial.activeSelf) || (chemNum == 2 && num == 2))
+        {
+            chemNumPublic = chemNum;
+            chemClickEvent = true;
+            FindObjectOfType<AudioManager>().Play("cabinetUse");
+            Hand.SetActive(true);
+            SpriteRenderer sr = Hand.GetComponent<SpriteRenderer>();
+            InHand = chem;
+            sr.sprite = InHand.Colour[0];
+        }
+
     }
 
 
     public void TrashClick()
-    { 
+    {
         // Allow player to throwout whatever chemical they are currently holding. 
 
         Hand.SetActive(false);
         InHand = chemicals[0];
         FindObjectOfType<AudioManager>().Play("trashUse");
         trashClickEvent = true;
-            
-        
+
+
     }
 
     public void BalanceClick()
-    { 
+    {
 
         if (Hand.activeSelf && !InHand.Product && (balanceStn.Reactant1 == null || balanceStn.Reactant2 == null || InHand == balanceStn.Reactant1 || InHand == balanceStn.Reactant2))
         {
@@ -290,7 +298,7 @@ public class Level1 : MonoBehaviour
                             balanceStn.Product = results[Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)];
                             UpdateBalanced();
                         }
-                        
+
                     }
                     else
                     {
@@ -378,10 +386,8 @@ public class Level1 : MonoBehaviour
         else
         {
             // Not balanced
-            string text1 = "Needed: " + (balanceStn.Product.Subscript1 * goal).ToString() + " " + balanceStn.Reactant1.SingleName;
-            string text2 = " " + (balanceStn.Product.Subscript2 * goal).ToString() + " " + balanceStn.Reactant2.SingleName;
 
-            resultTotal.text = text1 + text2 + " Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
+            resultTotal.text = " Missing: " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
         }
 
     }
@@ -392,20 +398,22 @@ public class Level1 : MonoBehaviour
 
         string order = customer1Text.text;
 
-        if (order == InHand.Name) {
-                customer1.SetActive(false);
+        if (order == InHand.Name)
+        {
+            customer1.SetActive(false);
             customer1Text.text = "";
-                ordersCompleted++;
-                ordersDone.text = ordersCompleted.ToString() + "/3";
+            ordersCompleted++;
+            ordersDone.text = ordersCompleted.ToString() + "/3";
 
-                Hand.SetActive(false);
-                if (orders.Count == 0) {
-                    EndLevel();
-                }
-                deliveryLightsOn = false;
-                conveyorBeltEvent = true;
-                FindObjectOfType<AudioManager>().Play("deliverCompound");
+            Hand.SetActive(false);
+            if (orders.Count == 0)
+            {
+                EndLevel();
             }
+            deliveryLightsOn = false;
+            conveyorBeltEvent = true;
+            FindObjectOfType<AudioManager>().Play("deliverCompound");
+        }
     }
 
     public void EndLevel()

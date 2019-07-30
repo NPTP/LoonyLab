@@ -24,6 +24,7 @@ public class Level2 : MonoBehaviour
     public Text customer1Text;
     public Text balanceHoverText;
     public Text ordersDone;
+    public Image compoundImage;
 
     public GameObject CHover;
     public GameObject O2Hover;
@@ -61,6 +62,7 @@ public class Level2 : MonoBehaviour
     private bool balancing = false;
 
     private int ordersCompleted = 0;
+    private List<Sprite> ordersImages = new List<Sprite>();
 
 
     private char sub_2 = (char)8322; // Subscript 2
@@ -102,6 +104,11 @@ public class Level2 : MonoBehaviour
         orders.Add("NH"+sub_3);
         orders.Add("H" + sub_2 + "O");
         orders.Add("NH" + sub_3);
+
+        ordersImages.Add(h20_sprites[h20_sprites.Count - 1]);
+        ordersImages.Add(nh3_sprites[nh3_sprites.Count - 1]);
+        ordersImages.Add(h20_sprites[h20_sprites.Count - 1]);
+        ordersImages.Add(nh3_sprites[nh3_sprites.Count - 1]);
 
         // Fix subscripts.
 
@@ -204,7 +211,9 @@ public class Level2 : MonoBehaviour
             {
                 customer1.SetActive(true);
                 customer1Text.text = orders[0]; // Load next order in line. 
-                orders.RemoveAt(0); // Remove loaded order from list. 
+                orders.RemoveAt(0); // Remove loaded order from list.
+                compoundImage.sprite = ordersImages[0];
+                ordersImages.RemoveAt(0);
             }
         }
     }
@@ -346,10 +355,9 @@ public class Level2 : MonoBehaviour
         else
         {
             // Not balanced
-            string text1 = "Needed: " + (balanceStn.Product.Subscript1 * goal).ToString() + " " + balanceStn.Reactant1.SingleName;
-            string text2 = " " + (balanceStn.Product.Subscript2 * goal).ToString() + " " + balanceStn.Reactant2.SingleName;
+     
 
-            resultTotal.text = text1 + text2 + " Missing " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
+            resultTotal.text = " Missing: " + missing1.ToString() + " " + balanceStn.Reactant1.SingleName + " and " + missing2.ToString() + " " + balanceStn.Reactant2.SingleName;
         }
     }
 

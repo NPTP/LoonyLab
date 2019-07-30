@@ -31,6 +31,7 @@ public class TutorialControl : MonoBehaviour
     public Text customer2Text;
     public Text tutorialText;
 
+
     public List<GameObject> sec1;
 
     public List<GameObject> sec2;
