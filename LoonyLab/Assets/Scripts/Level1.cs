@@ -124,6 +124,8 @@ public class Level1 : MonoBehaviour
         GenerateCustomers();
         InvokeRepeating("GenerateCustomers", 2.0f, 2.0f);
 
+        // TutorialList.Add("This customer ordered H" + sub_2 + "O. We have H" + sub_2 + " and O" + sub_2 + ", but together they won't create H" + sub_2 + "O! For that, we'd need O on its own.");
+        // TutorialList.Add("Since some molecules (like O" + sub_2 + ") don't come on their own, we need to find a way to balance this equation by adding extra molecules to make the desired compound.");
         TutorialList.Add("The left side of the equation shows the total # of atoms you've added to the station. The right side shows how many more you need for the equation to be balanced.");
         TutorialList.Add("4 Hydrogen atoms are needed, but you only have added 2! Go pick up another Hydrogen molecule and add it to the station!");
 

@@ -12,7 +12,8 @@ public class TutorialControl : MonoBehaviour
     public GameObject player; // Player object.
     public GameObject Hand; // Player's hand (inventory).
     public GameObject balancingScreen; // Screen that appears when balancing chemicals.
-    public GameObject customer1; // First customer object. 
+    public GameObject customer1; // First customer object.
+    public GameObject trashArrow;
 
     public GameObject CHover;
     public GameObject O2Hover;
@@ -101,6 +102,7 @@ public class TutorialControl : MonoBehaviour
         tutorialList.Add("You can see that the Carbon has been added to the station. Now let's go get some Oxygen and bring it over.");
         tutorialList.Add("You can see that the Carbon has been added to the station. Now let's go get some Oxygen and bring it over.");
         tutorialList.Add("Nice going, you're a natural at this! Now you can take your finished compound and give it to the customer.");
+        tutorialList.Add("Awesome work! Going forward, if you ever pick up the wrong element, you can throw it away over here.");
         tutorialList.Add("You did some great science today! Now it's time for you to test your skills and try completing tomorrow's orders on your own.");
         tutorialList.Add("");
 
@@ -386,14 +388,19 @@ public class TutorialControl : MonoBehaviour
             nextButton.SetActive(true);
             WASDbutton.SetActive(false);
         }
-        if (num == 8)
+        if(num == 8)
         {
             customerArrow.SetActive(false);
             nextButton.SetActive(true);
             WASDbutton.SetActive(false);
             space_next = true;
+            trashArrow.SetActive(true);
         }
-        if (num == 9)
+        if(num == 9)
+        {
+            trashArrow.SetActive(false);
+        }
+        if (num == 10)
         {
             SceneManager.LoadScene("Level1");
         }
