@@ -2320,6 +2320,7 @@ GameObject:
   - component: {fileID: 606200219}
   - component: {fileID: 606200218}
   - component: {fileID: 606200217}
+  - component: {fileID: 606200220}
   m_Layer: 5
   m_Name: BalancingStation
   m_TagString: Untagged
@@ -2402,6 +2403,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606200215}
   m_CullTransparentMesh: 0
+--- !u!114 &606200220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606200215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac68843c800242d4297c4c56508091b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balstationAnimator: {fileID: 606200217}
 --- !u!1 &619540293
 GameObject:
   m_ObjectHideFlags: 0

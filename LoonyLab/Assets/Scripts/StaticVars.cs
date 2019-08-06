@@ -10,6 +10,8 @@ public class StaticVars : MonoBehaviour
     public static bool trashClickEvent = false;
     public static bool deliveryLightsOn = false;
     public static bool conveyorBeltEvent = false;
+    public static bool balstationActive = false;
+    public static bool compoundMade = false;
 
     // Start is called before the first frame update
     void Start()
