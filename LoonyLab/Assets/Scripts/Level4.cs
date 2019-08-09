@@ -60,6 +60,7 @@ public class Level4 : MonoBehaviour
     public List<Sprite> molecules;
 
     private bool balancing = false;
+    private bool reset = false;
 
     private int ordersCompleted = 0;
 
@@ -250,8 +251,14 @@ public class Level4 : MonoBehaviour
     }
 
     public void BalanceClick()
-    { 
-
+    {
+        if (!CheckAddItem())
+        {
+            result.text = "Balance Station Overloaded!";
+            resultTotal.text = "It will now reset.";
+            reset = true;
+            Hand.SetActive(false);
+        }
         if (Hand.activeSelf && !InHand.Product)
         {
 
@@ -260,12 +267,12 @@ public class Level4 : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("addToBalStation");
             balstationActive = true;
 
-            if (balanceStn.Reactant1 == null)
+            if (balanceStn.Reactant1 == null && InHand != balanceStn.Reactant1)
             {
                 balanceStn.Reactant1 = InHand;
                 balanceStn.QuantityR1 = 1;
                 chem1.text = "1  " + InHand.Name;
-                chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Molecules";
+                chem1Total.text = "Total: " + InHand.Subscript1.ToString() + " " + InHand.SingleName + " Atoms";
 
             }
             else
@@ -292,7 +299,7 @@ public class Level4 : MonoBehaviour
                             balanceStn.Product = results[Tuple.Create(balanceStn.Reactant1, balanceStn.Reactant2)];
                             UpdateBalanced();
                         }
-                        
+
                     }
                     else
                     {
@@ -321,7 +328,13 @@ public class Level4 : MonoBehaviour
                 }
             }
         }
-
+        if (!CheckAddItem2())
+        {
+            result.text = "Balance Station Overloaded!";
+            resultTotal.text = "It will now reset.";
+            reset = true;
+            Hand.SetActive(false);
+        }
         DisplayAtomImages();
         FindObjectOfType<AudioManager>().Play("viewBalStation");
         balancingScreen.SetActive(true);
@@ -402,8 +415,11 @@ public class Level4 : MonoBehaviour
         balancingScreen.SetActive(false);
         balancing = false;
         player.GetComponent<PlayerController>().balancing = false;
-        if (Hand.activeSelf)
+        if (Hand.activeSelf || reset)
+        {
             ClearScreen();
+            reset = false;
+        }
     }
 
     public void ClearScreen()
@@ -599,13 +615,43 @@ public class Level4 : MonoBehaviour
 
             return (balanceStn.QuantityR1 < 4 && goal < 5);
         }
-        else if (InHand == balanceStn.Reactant2)
+        else if (InHand == balanceStn.Reactant2 && balanceStn.Product != null)
         {
             int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
             int num2 = (int)Math.Ceiling((balanceStn.QuantityR2 + 1) * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
             int goal = Math.Max(num1, num2);
 
             return (balanceStn.QuantityR2 < 4 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant1)
+        {
+            return balanceStn.QuantityR1 < 4;
+        }
+        return true;
+
+    }
+
+    public bool CheckAddItem2()
+    {
+        if (InHand == balanceStn.Reactant1 && balanceStn.Reactant2 != null)
+        {
+            int num1 = (int)Math.Ceiling((balanceStn.QuantityR1) * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            return (balanceStn.QuantityR1 < 5 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant2 && balanceStn.Product != null)
+        {
+            int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling((balanceStn.QuantityR2) * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            return (balanceStn.QuantityR2 < 5 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant1)
+        {
+            return balanceStn.QuantityR1 < 5;
         }
         return true;
 

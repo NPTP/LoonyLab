@@ -71,6 +71,8 @@ public class Level1 : MonoBehaviour
     private char sub_2 = (char)8322; // Subscript 2
     private char sub_3 = (char)8323; // Subscript 3
 
+    private bool reset = false;
+
 
     private List<Chemical> chemicals = new List<Chemical>(); // List of chemicals player can pick up. 
     private List<string> orders = new List<string>(); // List of orders customers will make throughout level.
@@ -262,6 +264,13 @@ public class Level1 : MonoBehaviour
     public void BalanceClick()
     {
 
+        if (!CheckAddItem())
+        {
+            result.text = "Balance Station Overloaded!";
+            resultTotal.text = "It will now reset.";
+            reset = true;
+            Hand.SetActive(false);
+        }
         if (Hand.activeSelf && !InHand.Product && (balanceStn.Reactant1 == null || balanceStn.Reactant2 == null || InHand == balanceStn.Reactant1 || InHand == balanceStn.Reactant2))
         {
             balancingScreen.SetActive(true);
@@ -289,7 +298,7 @@ public class Level1 : MonoBehaviour
                 }
                 else
                 {
-                    if (balanceStn.Reactant2 == null)
+                    if (balanceStn.Reactant2 == null && InHand != balanceStn.Reactant1)
                     {
                         balanceStn.Reactant2 = InHand;
                         balanceStn.QuantityR2 = 1;
@@ -337,11 +346,19 @@ public class Level1 : MonoBehaviour
             NextClick();
 
         }
+        if (!CheckAddItem2())
+        {
+            result.text = "Balance Station Overloaded!";
+            resultTotal.text = "It will now reset.";
+            reset = true;
+            Hand.SetActive(false);
+        }
         DisplayAtomImages();
         FindObjectOfType<AudioManager>().Play("viewBalStation");
         balancingScreen.SetActive(true);
         player.GetComponent<PlayerController>().balancing = true;
         balancing = true;
+        
     }
 
     public void NextClick()
@@ -435,8 +452,11 @@ public class Level1 : MonoBehaviour
         balancingScreen.SetActive(false);
         balancing = false;
         player.GetComponent<PlayerController>().balancing = false;
-        if (Hand.activeSelf)
+        if (Hand.activeSelf || reset)
+        {
             ClearScreen();
+            reset = false;
+        }
     }
 
     public void ClearScreen()
@@ -635,13 +655,43 @@ public class Level1 : MonoBehaviour
 
             return (balanceStn.QuantityR1 < 4 && goal < 5);
         }
-        else if (InHand == balanceStn.Reactant2)
+        else if (InHand == balanceStn.Reactant2 && balanceStn.Product != null)
         {
             int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
             int num2 = (int)Math.Ceiling((balanceStn.QuantityR2 + 1) * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
             int goal = Math.Max(num1, num2);
 
             return (balanceStn.QuantityR2 < 4 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant1)
+        {
+            return balanceStn.QuantityR1 < 4;
+        }
+        return true;
+
+    }
+
+    public bool CheckAddItem2()
+    {
+        if (InHand == balanceStn.Reactant1 && balanceStn.Reactant2 != null)
+        {
+            int num1 = (int)Math.Ceiling((balanceStn.QuantityR1) * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling(balanceStn.QuantityR2 * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            return (balanceStn.QuantityR1 < 5 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant2 && balanceStn.Product != null)
+        {
+            int num1 = (int)Math.Ceiling(balanceStn.QuantityR1 * balanceStn.Reactant1.Subscript1 / (float)balanceStn.Product.Subscript1);
+            int num2 = (int)Math.Ceiling((balanceStn.QuantityR2) * balanceStn.Reactant2.Subscript1 / (float)balanceStn.Product.Subscript2);
+            int goal = Math.Max(num1, num2);
+
+            return (balanceStn.QuantityR2 < 5 && goal < 5);
+        }
+        else if (InHand == balanceStn.Reactant1)
+        {
+            return balanceStn.QuantityR1 < 5;
         }
         return true;
 
