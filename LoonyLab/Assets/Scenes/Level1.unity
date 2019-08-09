@@ -8997,7 +8997,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CONGRATULATIONS! YOU FINISHED ALL OF THE ORDERS :)
+  m_Text: WELL DONE! KEEP UP THE GOOD WORK.
 --- !u!222 &2142215260
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -211,6 +211,7 @@ public class TutorialControl : MonoBehaviour
                 balancingScreen.SetActive(true);
                 Hand.SetActive(false);
                 FindObjectOfType<AudioManager>().Play("addToBalStation");
+                balstationActive = true;
 
                 if (balanceStn.Reactant1 == null)
                 {
@@ -298,6 +299,7 @@ public class TutorialControl : MonoBehaviour
 
             FindObjectOfType<AudioManager>().Play("successBalance");
             deliveryLightsOn = true;
+            compoundMade = true;
         }
         else
         {

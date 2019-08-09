@@ -254,6 +254,7 @@ public class Level3 : MonoBehaviour
             balancingScreen.SetActive(true);
             Hand.SetActive(false);
             FindObjectOfType<AudioManager>().Play("addToBalStation");
+            balstationActive = true;
 
             if (balanceStn.Reactant1 == null)
             {
@@ -347,6 +348,7 @@ public class Level3 : MonoBehaviour
             sr.sprite = molecules[7];
             FindObjectOfType<AudioManager>().Play("successBalance");
             deliveryLightsOn = true;
+            compoundMade = true;
         }
         else
         {
@@ -403,6 +405,7 @@ public class Level3 : MonoBehaviour
     public void ClearScreen()
     {
         FindObjectOfType<AudioManager>().Play("clearBalStation");
+        balstationActive = false;
         balanceStn.Reactant1 = null;
         balanceStn.Reactant2 = null;
         balanceStn.QuantityR1 = 0;
